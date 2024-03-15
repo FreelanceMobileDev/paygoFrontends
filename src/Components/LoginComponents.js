@@ -69,6 +69,8 @@ const LoginComponent = () => {
       </div>
       <div className="col-md-8 content-section">
         <img
+     
+        className="img-logo"
           alt="backgorundImage"
           src="https://codingzone.s3.ap-south-1.amazonaws.com/Illustration.png"
         />

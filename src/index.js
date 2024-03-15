@@ -14,7 +14,7 @@ import UserComponent from './Components/UserComponents';
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <LoginComponent />,
+    element: <UserComponent />,
   },
   {
     path:"/privacy",
