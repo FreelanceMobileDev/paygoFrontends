@@ -1,0 +1,2 @@
+export const LOGO = "https://codingzone.s3.ap-south-1.amazonaws.com/Rose_Gold_Brush_Glitter_Feminine_Boutique_Circle_Logo-removebg-preview+1.png"
+export const userLogo = "https://codingzone.s3.ap-south-1.amazonaws.com/imgpsh_fullsize_anim+(2).png"

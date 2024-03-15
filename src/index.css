@@ -1,0 +1,232 @@
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+.body{
+  width:100%;
+  border-color: black;
+}
+.landingPage {
+  margin:0;
+  padding:0;
+  box-sizing: border-box;
+  display: flex;
+  width:100%;
+}
+.sidebar {
+  position: sticky;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 110vh;
+  overflow: hidden;
+  transition: all;
+  background-color: #FF914D;
+}
+.logo {
+  height: 40%;
+  background-color: #FF914D
+}
+.logo > img {
+  width: 100%;
+  height: 100%;
+}
+.login {
+  margin-top: 5%;
+  text-align: center;
+  color: FF914D;
+  border-radius: 10px;
+  font-family: serif;
+}
+.inputText {
+  color: white;
+  margin-left: 5%;
+  font-family: serif;
+  font-size: 20px;
+}
+.inputTextField {
+  border-radius: 10px;
+  border-color: white;
+  height: 40px;
+  margin-left: 5%;
+  width: 80%;
+  padding: 10px;
+}
+.content-section > img {
+  width: 100%;
+  height: 100vh;
+}
+
+.submitButton{
+  justify-content: center;
+  width: 80%;
+  margin-top: 5%;
+  align-items: center;
+
+}
+.loginButton {
+  border-radius: 10px;
+  border-color: white;
+  height: 40px;
+  width: 100%;
+  justify-content: center;
+  color: #FF914D;
+  text-align: center; 
+  font-size: 20px;
+  display: flex;
+  align-self:center;
+  margin-left: 6%;
+ 
+}
+.sideBarComponent{
+  display: flex;
+  flex-direction: column;
+  width:30%
+}
+.dashboard-menu-container {
+  max-height: calc(100vh - 40px); 
+  overflow-y: auto;
+}
+.logoSideBarComponent img{
+  height: 100%;
+  width: 100%;
+  background-color: #FF914D;
+}
+.main{
+  background-color: #FF914D;
+  color: white;
+  height:78vh;
+}
+.main ul.menu li a{
+  text-decoration: none;
+  color:#f2f1f0;
+  transition: color 0.3s ease;
+  padding:7px;
+  font-size: 20px;
+  padding-left: 10px;
+  font-family: 'Times New Roman', Times, serif;
+}
+.main ul.menu li {
+  list-style-type: none;
+  margin-bottom: 10px; 
+  padding-left: 7px;
+  font-size: 30px;
+  font-weight:bold
+}
+.header-container{
+  display:flex;
+  font-family: 'Times New Roman', Times, serif;
+}
+.dashboard{
+  width: 100%;
+  margin-left: 11%;
+  margin-top: 5%;
+}
+.dashboard h1{
+  margin:1%;
+  font-weight: bold;
+  flex: 1;
+}
+.dashboard-menu {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap; 
+}
+
+.dashboard-menu-box {
+  display: flex;
+  flex-direction: column; 
+  background-color: #FF914D;
+  height: 200px;
+  max-width: 40%;
+  border-radius: 10px;
+  margin: 10px;
+  font-size: 20px;
+  font-weight: bold;
+  color: white;
+  text-align: center;
+}
+.dashboard-menu-box h1{
+  padding: 15%;
+  font-weight: bold;
+}
+.user-container {
+  display: flex;
+  width: 100%;
+  margin-left: 5%;
+  margin-right: 5%;
+  margin-top: 3%;
+  height: 16vh;
+}
+.user-container  h1{
+  font-weight: bold;
+}
+.user-search-container{
+  margin-left: 50%;
+  margin-top: 1%;
+  height: 7%;
+  display: flex;
+  float :right;
+}
+.user-search-container button{
+  margin-left: 5px;
+  height:38px;
+}
+.user-container {
+  display: flex;
+  justify-content: space-between;
+
+  flex-direction: column;
+}
+.user-header {
+  display: flex;
+  align-items: center; 
+}
+.inputTextUserSearchField
+{
+  border-radius: 10px;
+  height: 38px;
+  margin-left: 5%;
+  width: 80%;
+  padding: 10px;
+ 
+}
+.search-button {
+  display: flex;
+  align-items: center;
+}
+.search-container
+{
+  display:flex;
+  flex-direction:row;
+}
+.user-table-data{
+  margin-top: 0px;
+  border-radius: 5px;
+}
+.user-logo {
+  width: 8%;
+  border-radius: 50%;
+  background-color: #e7eaef;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+
+.user-logo > img {
+  max-width: 70%;
+  max-height: 70%;
+
+  border-radius: 50%; /* Ensure the image remains within the circular boundary */
+}
