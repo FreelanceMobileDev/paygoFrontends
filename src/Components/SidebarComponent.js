@@ -15,7 +15,7 @@ const SidebarComponent = () => {
             </Link>
           </li>
           <li>
-            <span> Users</span>
+            <Link to=""><span> Users</span></Link>
           </li>
           <li>
             <Link to="/user">
@@ -24,7 +24,7 @@ const SidebarComponent = () => {
             </Link>
           </li>
           <li>
-            <span> Messages</span>
+           <Link> <span> Messages</span></Link>
           </li>
           <li>
             <Link to="/insurance-loan">
@@ -33,13 +33,13 @@ const SidebarComponent = () => {
             </Link>
           </li>
           <li>
-            <span> Financial Loan</span>
+            <Link><span> Financial Loan</span></Link>
           </li>
           <li>
-            <span> Add agent</span>
+           <Link> <span> Add agent</span></Link>
           </li>
           <li>
-            <span> Premium Information</span>
+            <Link> <span> Premium Information</span></Link>
           </li>
         </ul>
       </div>
