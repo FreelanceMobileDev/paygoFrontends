@@ -56,15 +56,15 @@ const CarLoanListingComponent = () => {
                 {insuranceLoan.map((user, index) => (
                   <tr key={index}>
                     <td>{index + 1}</td>
-                    <td>{user?.ownerId?.name}</td>
-                    <td>{user?.ownerId?.phoneNumber}</td>
+                    <td>{user?.userId?.name}</td>
+                    <td>{user?.userId?.phoneNumber}</td>
                     <td>
                       <Button
                         variant={`outline-${
-                          user?.ownerId?.gender === "male" ? "warning" : "info"
+                          user?.userId?.gender === "male" ? "warning" : "info"
                         }`}
                       >
-                        {user?.ownerId?.gender === "male" ? "Male" : "Female"}
+                        {user?.userId?.gender === "male" ? "Male" : "Female"}
                       </Button>
                     </td>
                     <td>
@@ -91,8 +91,8 @@ const CarLoanListingComponent = () => {
           <p>Application Date : {selectedUser?.applicationDate.split("T")[0]}</p>
           <p>Bank Account Number : {selectedUser?.bankAccountNumber}</p>
           <p>Bank Name : {selectedUser?.bankName}</p>
-          <p>Name: {selectedUser?.ownerId?.name}</p>
-          <p>Mobile Number: {selectedUser?.ownerId?.phoneNumber}</p>
+          <p>Name: {selectedUser?.userId?.name}</p>
+          <p>Mobile Number: {selectedUser?.userId?.phoneNumber}</p>
           <p>Car Condition :{selectedUser?.carCondition}</p>
           <p>Color :{selectedUser?.color}</p>
           <p>Employement Address :{selectedUser?.employmentAddress}</p>
