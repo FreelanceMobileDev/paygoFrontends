@@ -11,6 +11,7 @@ import {
 import LoginComponent from './Components/LoginComponents';
 import DashboardComponent from './Components/DashboardComponent';
 import UserComponent from './Components/UserComponents';
+import CarLoanListingComponent from './Components/CarLoanListingComponent';
 const router = createBrowserRouter([
   {
     path: "/",
@@ -27,6 +28,10 @@ const router = createBrowserRouter([
   {
     path:"/user",
     element:<UserComponent />
+  },
+  {
+    path:"/insurance-loan",
+    element:<CarLoanListingComponent/>
   }
 ]);
 ReactDOM.createRoot(document.getElementById("root")).render(
