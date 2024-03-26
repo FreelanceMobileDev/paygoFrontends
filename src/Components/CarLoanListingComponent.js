@@ -4,6 +4,7 @@ import axios from "axios";
 import { Table, Button,Modal  } from "react-bootstrap";
 
 const CarLoanListingComponent = () => {
+  //Car loan Insurance
   const [insuranceLoan, setInsuranceLoan] = useState([]);
   const [selectedUser, setSelectedUser] = useState(null);
   const [showModal, setShowModal] = useState(false);
