@@ -11,12 +11,12 @@ const SidebarComponent = () => {
                     <ul className="menu">
                         <li>
                             
-                                <span> Home</span>
+                               <Link to="/"><span> Home</span></Link>
                             
                         </li>
                         <li>
                            
-                                <span> Users</span>
+                                <Link to="/user"><span> Users</span></Link>
                             
                         </li>
                         <li>
