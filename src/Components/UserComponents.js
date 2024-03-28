@@ -29,7 +29,7 @@ const UserComponent = () => {
 
   const handleApprove = async (user) => {
     try {
-      await axios.put("http://13.234.27.39:3213/api/user/update-user-status", {
+      await axios.put("http://localhost:3213/api/user/update-user-status", {
         userId: user._id,
         isVerified: true,
       });
@@ -42,7 +42,7 @@ const UserComponent = () => {
 
   const handleReject = async (user) => {
     try {
-      await axios.put("http://13.234.27.39:3213/api/user/update-user-status", {
+      await axios.put("http://localhost:3213/api/user/update-user-status", {
         userId: user._id,
         isVerified: false,
       });

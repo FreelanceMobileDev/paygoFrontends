@@ -1,27 +1,27 @@
 import React, { useEffect, useState } from "react";
 import SidebarComponent from "./SidebarComponent";
 import axios from "axios";
-import { Table, Button,Modal  } from "react-bootstrap";
+import { Table, Button, Modal } from "react-bootstrap";
 
 const CarLoanListingComponent = () => {
-  //Car loan Insurance
   const [insuranceLoan, setInsuranceLoan] = useState([]);
   const [selectedUser, setSelectedUser] = useState(null);
   const [showModal, setShowModal] = useState(false);
+
   useEffect(() => {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          "http://13.234.27.39:3213/api/insurance/get-insurance"
+          "http://localhost:3213/api/insurance/get-insurance"
         );
-        console.log(response?.data);
-        setInsuranceLoan(response?.data?.data);
+        setInsuranceLoan(response?.data?.data || []);
       } catch (error) {
-        console.error("Error fetching user data:", error);
+        console.error("Error fetching insurance data:", error);
       }
     };
     fetchData();
   }, []);
+
   const handleShowUserInfo = (user) => {
     setSelectedUser(user);
     setShowModal(true);
@@ -30,6 +30,7 @@ const CarLoanListingComponent = () => {
   const handleCloseModal = () => {
     setShowModal(false);
   };
+
   return (
     <div>
       <div className="header-container">
@@ -49,7 +50,8 @@ const CarLoanListingComponent = () => {
                   <th>S.NO.</th>
                   <th>Name</th>
                   <th>Mobile Number</th>
-                  <th>Gender</th>
+                  <th>Vehicle Brand</th>
+                  <th>Vehicle Name</th>
                   <th>Action</th>
                 </tr>
               </thead>
@@ -59,21 +61,14 @@ const CarLoanListingComponent = () => {
                     <td>{index + 1}</td>
                     <td>{user?.userId?.name}</td>
                     <td>{user?.userId?.phoneNumber}</td>
+                    <td>{user?.vehicleModel}</td>
+                    <td>{user?.vehicleName}</td>
                     <td>
                       <Button
-                        variant={`outline-${
-                          user?.userId?.gender === "male" ? "warning" : "info"
-                        }`}
-                      >
-                        {user?.userId?.gender === "male" ? "Male" : "Female"}
-                      </Button>
-                    </td>
-                    <td>
-                      <Button
-                        variant="info"
+                        variant="secondary"
                         onClick={() => handleShowUserInfo(user)}
                       >
-                        Show User Info
+                        Show Vehicle Info
                       </Button>
                     </td>
                   </tr>
@@ -88,8 +83,16 @@ const CarLoanListingComponent = () => {
           <Modal.Title>Insurance Loan Details</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-        <p>DrivingLicenceImage:<img src="https://imgd.aeplcdn.com/272x153/n/cw/ec/40432/scorpio-n-exterior-right-front-three-quarter-75.jpeg?isig=0&q=80"/></p>
-          <p>Application Date : {selectedUser?.applicationDate.split("T")[0]}</p>
+          <p>
+            DrivingLicenceImage:
+            <img
+              src="https://imgd.aeplcdn.com/272x153/n/cw/ec/40432/scorpio-n-exterior-right-front-three-quarter-75.jpeg?isig=0&q=80"
+              alt="Driving License"
+            />
+          </p>
+          <p>
+            Application Date : {selectedUser?.applicationDate.split("T")[0]}
+          </p>
           <p>Bank Account Number : {selectedUser?.bankAccountNumber}</p>
           <p>Bank Name : {selectedUser?.bankName}</p>
           <p>Name: {selectedUser?.userId?.name}</p>
@@ -118,4 +121,5 @@ const CarLoanListingComponent = () => {
     </div>
   );
 };
+
 export default CarLoanListingComponent;

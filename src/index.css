@@ -115,7 +115,7 @@ margin-left: 20%;
 .main{
   background-color: #FF914D;
   color: white;
-  height:78vh;
+  height:115vh;
 }
 .main ul.menu li a{
   text-decoration: none;
@@ -234,10 +234,17 @@ margin-left: 20%;
   align-items: center;
 }
 
+.addBrandButton{
+  background-color: #FF914D;
+  height: 40px;
+  border-radius: 15px;
+  border-color: white;
+  color:white;
+  float:right;
+}
 
 .user-logo > img {
   max-width: 70%;
   max-height: 70%;
-
   border-radius: 50%; /* Ensure the image remains within the circular boundary */
 }

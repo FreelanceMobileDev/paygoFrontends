@@ -12,6 +12,9 @@ import LoginComponent from './Components/LoginComponents';
 import DashboardComponent from './Components/DashboardComponent';
 import UserComponent from './Components/UserComponents';
 import CarLoanListingComponent from './Components/CarLoanListingComponent';
+import ContactUsComponent from './Components/ContactUsComponent';
+import AddBrandComponent from './Components/AddBrandComponent';
+import AddCarComponent from './Components/AddCarComponent';
 const router = createBrowserRouter([
   {
     path: "/",
@@ -28,6 +31,18 @@ const router = createBrowserRouter([
   {
     path:"/user",
     element:<UserComponent />
+  },
+  {
+    path:"/contact-us", 
+    element:<ContactUsComponent/>
+  },
+  {
+    path:"/add-brand",
+    element:<AddBrandComponent/>
+  },
+  {
+    path:"/add-car",
+    element:<AddCarComponent/>
   },
   {
     path:"/insurance-loan",

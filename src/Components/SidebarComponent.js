@@ -34,6 +34,9 @@ const SidebarComponent = () => {
             </Link>
           </li>
           <li>
+                <Link to="/contact-us"><span>Contact Us</span></Link>
+          </li>
+          <li>
             <Link><span> Financial Loan</span></Link>
           </li>
           <li>
@@ -41,6 +44,12 @@ const SidebarComponent = () => {
           </li>
           <li>
             <Link> <span> Premium Information</span></Link>
+          </li>
+          <li>
+            <Link to="/add-brand"><span>Add Brand</span></Link>
+          </li>
+          <li>
+            <Link to="/add-car"><span>Add Models</span></Link>
           </li>
         </ul>
       </div>
