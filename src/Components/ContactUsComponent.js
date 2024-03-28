@@ -12,7 +12,7 @@ const ContactUsComponent = () => {
         const fetchData = async () => {
             try {
                 const response = await axios.get(
-                    "http://localhost:3213/api/user/get-contact"
+                    "http://13.127.84.202:3213/api/user/get-contact"
                 );
                 setContactUs(response?.data?.data || []);
             } catch (error) {
