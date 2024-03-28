@@ -13,9 +13,9 @@ const UserComponent = () => {
   const fetchData = async () => {
     try {
       const response = await axios.get(
-        "http://13.234.27.39:3213/api/user/list-user-details"
+        "http://13.127.84.202:3213/api/user/list-user-details"
       );
-
+      console.log(response?.data?.data)
       setUserRequest(response?.data?.data?.getUserCount);
       setUserData(response?.data?.data?.getAllUser);
     } catch (error) {
@@ -33,7 +33,6 @@ const UserComponent = () => {
         userId: user._id,
         isVerified: true,
       });
-      // Refetch user data after approval
       fetchData();
     } catch (error) {
       console.error("Error approving user:", error);
@@ -46,7 +45,6 @@ const UserComponent = () => {
         userId: user._id,
         isVerified: false,
       });
-      // Refetch user data after rejection
       fetchData();
     } catch (error) {
       console.error("Error rejecting user:", error);
