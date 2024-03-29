@@ -56,7 +56,7 @@ const AddCarComponent = () => {
         "http://13.127.84.202:3213/api/car/get-brand-name"
       );
       setBrands(updatedBrandsResponse?.data?.data || []);
-      navigate('http://13.127.84.202:3000/add-car', { replace: true });
+      navigate('/', { replace: true });
     } catch (error) {
       console.error("Error adding model:", error);
     }

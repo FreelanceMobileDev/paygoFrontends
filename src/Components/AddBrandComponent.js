@@ -42,7 +42,7 @@ const AddBrandComponent = () => {
         console.log("API Response:", response.data);
         setSubmitting(false);
         handleCloseModal();
-        navigate('http://13.127.84.202:3000/add-brand', { replace: true });
+        navigate('/', { replace: true });
     } catch (error) {
         console.error("Error adding brand:", error);
     }
