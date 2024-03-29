@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { useNavigate } from 'react-router-dom';
 import axios from "axios";
 import { Formik, Form as FormikForm, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
@@ -7,6 +8,7 @@ import {  Table, Modal, Form, Button} from "react-bootstrap";
 import { FaPen } from "react-icons/fa";
 
 const AddBrandComponent = () => {
+    const navigate = useNavigate();
     const [brands, setIBrands] = useState([]);
     const [showModal, setShowModal] = useState(false);
 
@@ -40,10 +42,9 @@ const AddBrandComponent = () => {
         console.log("API Response:", response.data);
         setSubmitting(false);
         handleCloseModal();
-        window.location.reload();
+        navigate('http://13.127.84.202:3000/add-brand', { replace: true });
     } catch (error) {
         console.error("Error adding brand:", error);
-        // Handle any
     }
       console.log("Form values:", values);
         setSubmitting(false);

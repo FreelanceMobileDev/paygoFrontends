@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { useNavigate } from 'react-router-dom';
 import axios from "axios";
 import { Formik, Form as FormikForm, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
@@ -7,6 +8,7 @@ import { Table, Modal, Form, Button } from "react-bootstrap";
 import { FaPen } from "react-icons/fa";
 
 const AddCarComponent = () => {
+  const navigate = useNavigate();
   const [brands, setBrands] = useState([]);
   const [showModal, setShowModal] = useState(false);
   const [showModalData, setShowModalData] = useState(false);
@@ -20,6 +22,7 @@ const AddCarComponent = () => {
         const responseData = await axios.get(
           "http://13.127.84.202:3213/api/car/get-car-name"
         );
+        console.log(response?.data?.data)
         console.log(responseData?.data?.data);
         setShowModalData(responseData?.data?.data || []);
         setBrands(response?.data?.data || []);
@@ -47,13 +50,13 @@ const AddCarComponent = () => {
           name: values.modelName,
         }
       );
-      console.log("API Response:", response.data);
       setSubmitting(false);
       handleCloseModal();
       const updatedBrandsResponse = await axios.get(
         "http://13.127.84.202:3213/api/car/get-brand-name"
       );
       setBrands(updatedBrandsResponse?.data?.data || []);
+      navigate('http://13.127.84.202:3000/add-car', { replace: true });
     } catch (error) {
       console.error("Error adding model:", error);
     }
