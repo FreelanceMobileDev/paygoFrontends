@@ -3,7 +3,6 @@ import { LOGO } from "../constants/constantMessages";
 import { Link } from "react-router-dom";
 const SidebarComponent = () => {
   return (
-        //Sidebar
     <div className="sideBarComponent">
       <div className="logoSideBarComponent">
         <img src={LOGO} alt="sidebar logo" />
