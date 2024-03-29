@@ -16,7 +16,7 @@ const AddBrandComponent = () => {
         const fetchData = async () => {
           try {
             const response = await axios.get(
-              "http://localhost:3213/api/car/get-brand-name"
+              "http://13.127.84.202:3213/api/car/get-brand-name"
             );
             setIBrands(response?.data?.data || []);
           } catch (error) {
@@ -36,7 +36,7 @@ const AddBrandComponent = () => {
     const handleSubmit = async (values, { setSubmitting }) => {
       try {
         const response = await axios.post(
-            "http://localhost:3213/api/car/add-brand",
+            "http://13.127.84.202:3213/api/car/add-brand",
             { name: values.brandName } // Sending brand name from the form
         );
         console.log("API Response:", response.data);
