@@ -3,22 +3,23 @@ import SidebarComponent from "./SidebarComponent";
 import axios from "axios";
 import { userLogo } from "../constants/constantMessages";
 import { FaSearch } from "react-icons/fa";
-import { Button, Modal } from "react-bootstrap"; // Import Modal from react-bootstrap
+import { Button, Modal } from "react-bootstrap"; 
 import { Table } from "react-bootstrap";
 
 const UserComponent = () => {
   const [userData, setUserData] = useState([]);
   const [userRequest, setUserRequest] = useState([]);
-  const [selectedUser, setSelectedUser] = useState(null); // State to store selected user details
-  const [showDetailsModal, setShowDetailsModal] = useState(false); // State to control modal visibility
+  const [selectedUser, setSelectedUser] = useState(null); 
+  const [showDetailsModal, setShowDetailsModal] = useState(false);  
+  console.log(userData)
 
   const fetchData = async () => {
     try {
       const response = await axios.get(
         "http://13.127.84.202:3213/api/user/get-approved-user"
       );
-      setUserRequest(response?.data?.data?.getUserCount);
-      setUserData(response?.data?.data?.getAllUser);
+      console.log("====>>>response",response?.data)
+      setUserData(response?.data?.data);
     } catch (error) {
       console.error("Error fetching user data:", error);
     }
@@ -71,7 +72,8 @@ const UserComponent = () => {
                 </tr>
               </thead>
               <tbody>
-                {userData.map((user, index) => (
+                {console.log(userData)}
+                {userData?.map((user, index) => (
                   <tr key={index}>
                     <td>{index + 1}</td>
                     <td>{user?.name}</td>
