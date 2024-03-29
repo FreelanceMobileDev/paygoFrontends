@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import AddModelModal from "./AddModelModal";
 import { Formik, Form as FormikForm, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import SidebarComponent from "./SidebarComponent";
@@ -19,11 +20,10 @@ const AddCarComponent = () => {
         const response = await axios.get(
           "http://13.127.84.202:3213/api/car/get-brand-name"
         );
+        console.log("====>>response", response);
         const responseData = await axios.get(
           "http://13.127.84.202:3213/api/car/get-car-name"
         );
-        console.log(response?.data?.data)
-        console.log(responseData?.data?.data);
         setShowModalData(responseData?.data?.data || []);
         setBrands(response?.data?.data || []);
       } catch (error) {
@@ -55,8 +55,9 @@ const AddCarComponent = () => {
       const updatedBrandsResponse = await axios.get(
         "http://13.127.84.202:3213/api/car/get-brand-name"
       );
+      console.log("====>>updatedBrandsResponse", updatedBrandsResponse);
       setBrands(updatedBrandsResponse?.data?.data || []);
-      navigate('/', { replace: true });
+      navigate("/", { replace: true });
     } catch (error) {
       console.error("Error adding model:", error);
     }
@@ -105,57 +106,12 @@ const AddCarComponent = () => {
           </div>
         </div>
       </div>
-      <Modal show={showModal} onHide={handleCloseModal}>
-        <Modal.Header closeButton>
-          <Modal.Title>Add New Model</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          <Formik
-            initialValues={{ brandId: "", modelName: "" }}
-            validationSchema={Yup.object({
-              brandId: Yup.string().required("Brand is required"),
-              modelName: Yup.string().required("Model name is required"),
-            })}
-            onSubmit={handleSubmit}
-          >
-            <FormikForm>
-              <Form.Group controlId="brandId">
-                <Form.Label>Brand</Form.Label>
-                <Field as={Form.Control} component="select" name="brandId">
-                  <option value="">Select Brand</option>
-                  {brands.map((brand) => (
-                    <option key={brand._id} value={brand._id}>
-                      {brand.name}
-                    </option>
-                  ))}
-                </Field>
-                <ErrorMessage
-                  name="brandId"
-                  component="div"
-                  className="text-danger"
-                />
-              </Form.Group>
-              <Form.Group controlId="modelName">
-                <Form.Label>Model Name</Form.Label>
-                <Field
-                  as={Form.Control}
-                  type="text"
-                  name="modelName"
-                  placeholder="Enter model name"
-                />
-                <ErrorMessage
-                  name="modelName"
-                  component="div"
-                  className="text-danger"
-                />
-              </Form.Group>
-              <Button variant="primary" type="submit">
-                Add Model
-              </Button>
-            </FormikForm>
-          </Formik>
-        </Modal.Body>
-      </Modal>
+      <AddModelModal
+        showModal={showModal}
+        handleCloseModal={handleCloseModal}
+        brands={brands}
+        handleSubmit={handleSubmit}
+      />
     </div>
   );
 };
