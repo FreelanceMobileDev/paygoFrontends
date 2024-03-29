@@ -34,7 +34,7 @@ code {
   background-color: #FF914D;
 }
 .logo {
-  height: 40%;
+  height: 20%;
   background-color: #FF914D
 }
 .logo > img {
@@ -107,32 +107,37 @@ margin-left: 20%;
   max-height: calc(100vh - 40px); 
   overflow-y: auto;
 }
-.logoSideBarComponent img{
-  height: 100%;
-  width: 100%;
+.logoSideBarComponent{
+  height: 40%;
+  width: 70%;
   background-color: #FF914D;
 }
 .main{
   background-color: #FF914D;
   color: white;
   height:115vh;
+  width:70%;
 }
 .main ul.menu li a{
   text-decoration: none;
   color:#f2f1f0;
   transition: color 0.3s ease;
-  padding:7px;
-  font-size: 20px;
+  font-size: 15px;
   padding-left: 10px;
   font-family: 'Times New Roman', Times, serif;
+  margin-left: 10px;
+}
+.menu{
+  margin-left: 2px;
+  width:200px;
 }
 .main ul.menu li {
   list-style-type: none;
-  margin-bottom: 10px; 
+  margin-bottom: 5px; 
   padding-left: 7px;
   font-size: 30px;
   font-weight:bold;
-  
+  margin-bottom: -5px;
 }
 .header-container{
   display:flex;
@@ -159,7 +164,7 @@ margin-left: 20%;
   background-color: #FF914D;
   height: 100px;
   border-radius: 10px;
-  margin: 10px;
+  margin: 5px;
   color: white;
   text-align: center;
   width:40%;

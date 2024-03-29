@@ -4,9 +4,7 @@ import { Link } from "react-router-dom";
 const SidebarComponent = () => {
   return (
     <div className="sideBarComponent">
-      <div className="logoSideBarComponent">
-        <img src={LOGO} alt="sidebar logo" />
-      </div>
+        <img className="logoSideBarComponent" src={LOGO} alt="sidebar logo" />
       <div className="main">
         <ul className="menu">
           <li>
@@ -41,9 +39,7 @@ const SidebarComponent = () => {
           <li>
            <Link> <span> Add agent</span></Link>
           </li>
-          <li>
-            <Link> <span> Premium Information</span></Link>
-          </li>
+  
           <li>
             <Link to="/add-brand"><span>Add Brand</span></Link>
           </li>
