@@ -18,11 +18,11 @@ const AddCarComponent = () => {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          "http://13.127.84.202:3213/api/car/get-brand-name"
+          "http://http://13.127.84.202/:3213/api/car/get-brand-name"
         );
         console.log("====>>response", response);
         const responseData = await axios.get(
-          "http://13.127.84.202:3213/api/car/get-car-name"
+          "http://http://13.127.84.202/:3213/api/car/get-car-name"
         );
         setShowModalData(responseData?.data?.data || []);
         setBrands(response?.data?.data || []);
@@ -44,20 +44,20 @@ const AddCarComponent = () => {
   const handleSubmit = async (values, { setSubmitting }) => {
     try {
       const response = await axios.post(
-        "http://13.127.84.202:3213/api/car/add-model",
+        "http://http://13.127.84.202/:3213/api/car/add-model",
         {
           id: values.brandId,
           name: values.modelName,
         }
       );
+      setShowModalData(response?.data?.data)
       setSubmitting(false);
       handleCloseModal();
       const updatedBrandsResponse = await axios.get(
-        "http://13.127.84.202:3213/api/car/get-brand-name"
+        "http://http://13.127.84.202/:3213/api/car/get-brand-name"
       );
       console.log("====>>updatedBrandsResponse", updatedBrandsResponse);
       setBrands(updatedBrandsResponse?.data?.data || []);
-      window.location.reload();
     } catch (error) {
       console.error("Error adding model:", error);
     }

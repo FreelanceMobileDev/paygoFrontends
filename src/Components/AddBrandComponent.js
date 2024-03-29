@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from 'react-router-dom';
 import axios from "axios";
+import { Link } from "react-router-dom";
 import { Formik, Form as FormikForm, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import SidebarComponent from "./SidebarComponent";
@@ -16,7 +17,7 @@ const AddBrandComponent = () => {
         const fetchData = async () => {
           try {
             const response = await axios.get(
-              "http://13.127.84.202:3213/api/car/get-brand-name"
+              "http://http://13.127.84.202/:3213/api/car/get-brand-name"
             );
             setIBrands(response?.data?.data || []);
           } catch (error) {
@@ -36,13 +37,14 @@ const AddBrandComponent = () => {
     const handleSubmit = async (values, { setSubmitting }) => {
       try {
         const response = await axios.post(
-            "http://13.127.84.202:3213/api/car/add-brand",
-            { name: values.brandName } // Sending brand name from the form
+            "http://http://13.127.84.202/:3213/api/car/add-brand",
+            { name: values.brandName } 
         );
-        console.log("API Response:", response.data);
+        console.log("API Response:", response.data.data);
+        setIBrands([...brands, response.data.data]); 
         setSubmitting(false);
         handleCloseModal();
-        window.location.reload()
+          
     } catch (error) {
         console.error("Error adding brand:", error);
     }
