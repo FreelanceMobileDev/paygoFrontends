@@ -57,7 +57,7 @@ const AddCarComponent = () => {
       );
       console.log("====>>updatedBrandsResponse", updatedBrandsResponse);
       setBrands(updatedBrandsResponse?.data?.data || []);
-      navigate("/", { replace: true });
+      window.location.reload();
     } catch (error) {
       console.error("Error adding model:", error);
     }

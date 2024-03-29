@@ -42,7 +42,7 @@ const AddBrandComponent = () => {
         console.log("API Response:", response.data);
         setSubmitting(false);
         handleCloseModal();
-        navigate('/add-brand', { replace: true });
+        window.location.reload()
     } catch (error) {
         console.error("Error adding brand:", error);
     }
