@@ -3,12 +3,14 @@ import SidebarComponent from "./SidebarComponent";
 import axios from "axios";
 import { userLogo } from "../constants/constantMessages";
 import { FaSearch } from "react-icons/fa";
-import { Button } from "react-bootstrap";
+import { Button, Modal } from "react-bootstrap"; // Import Modal from react-bootstrap
 import { Table } from "react-bootstrap";
 
 const UserComponent = () => {
   const [userData, setUserData] = useState([]);
   const [userRequest, setUserRequest] = useState([]);
+  const [selectedUser, setSelectedUser] = useState(null); // State to store selected user details
+  const [showDetailsModal, setShowDetailsModal] = useState(false); // State to control modal visibility
 
   const fetchData = async () => {
     try {
@@ -26,32 +28,10 @@ const UserComponent = () => {
     fetchData();
   }, []);
 
-  const handleApprove = async (user) => {
-    try {
-      await axios.put("http://13.127.84.202:3213/api/user/update-user-status", {
-        userId: user._id,
-        isVerified: true,
-      });
-      // Filter out the approved user from userData array
-      const updatedUserData = userData.filter((u) => u._id !== user._id);
-      setUserData(updatedUserData);
-    } catch (error) {
-      console.error("Error approving user:", error);
-    }
-  };
-
-  const handleReject = async (user) => {
-    try {
-      await axios.put("http://13.127.84.202:3213/api/user/update-user-status", {
-        userId: user._id,
-        isVerified: false,
-      });
-      // Filter out the rejected user from userData array
-      const updatedUserData = userData.filter((u) => u._id !== user._id);
-      setUserData(updatedUserData);
-    } catch (error) {
-      console.error("Error rejecting user:", error);
-    }
+  // Function to handle showing user details
+  const handleShowDetails = (user) => {
+    setSelectedUser(user); // Set selected user details
+    setShowDetailsModal(true); // Show modal
   };
 
   return (
@@ -60,7 +40,7 @@ const UserComponent = () => {
         <SidebarComponent />
         <div className="user-container">
           <div className="search-container">
-            <h1>User Request</h1>
+            <h1>Approved User</h1>
             <div className="user-search-container">
               <input
                 type="text"
@@ -71,14 +51,6 @@ const UserComponent = () => {
               <Button variant="primary">
                 <FaSearch />
               </Button>
-            </div>
-          </div>
-          <div className="user-container">
-            <div className="user-logo">
-              <img src={userLogo} alt="User Logo" />
-            </div>
-            <div className="user-text">
-              <b>{userRequest}</b> Total User Request
             </div>
           </div>
           <div className="user-table-data">
@@ -112,30 +84,12 @@ const UserComponent = () => {
                       )}
                     </td>
                     <td>
-                      {user?.isVerified ? (
-                        <Button
-                          variant="success"
-                          onClick={() => handleApprove(user)}
-                        >
-                          Approve
-                        </Button>
-                      ) : (
-                        <>
-                          <Button
-                            variant="success"
-                            onClick={() => handleApprove(user)}
-                            style={{ marginRight: "5px" }}
-                          >
-                            Approve
-                          </Button>
-                          <Button
-                            variant="danger"
-                            onClick={() => handleReject(user)}
-                          >
-                            Reject
-                          </Button>
-                        </>
-                      )}
+                      <Button
+                        variant="primary"
+                        onClick={() => handleShowDetails(user)} // Pass user data to the function
+                      >
+                        Show Details
+                      </Button>
                     </td>
                   </tr>
                 ))}
@@ -144,6 +98,27 @@ const UserComponent = () => {
           </div>
         </div>
       </div>
+
+      {/* Modal to display user details */}
+      <Modal show={showDetailsModal} onHide={() => setShowDetailsModal(false)}>
+        <Modal.Header closeButton>
+          <Modal.Title>User Details</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          {selectedUser && (
+            <div>
+              <p><strong>Name:</strong> {selectedUser.name}</p>
+              <p><strong>Mobile Number:</strong> {selectedUser.phoneNumber}</p>
+              {/* Add more details as needed */}
+            </div>
+          )}
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={() => setShowDetailsModal(false)}>
+            Close
+          </Button>
+        </Modal.Footer>
+      </Modal>
     </div>
   );
 };

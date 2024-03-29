@@ -13,7 +13,7 @@ const SidebarComponent = () => {
             </Link>
           </li>
           <li>
-            <Link to=""><span> Users</span></Link>
+            <Link to="/approved-user"><span>Approved Users</span></Link>
           </li>
           <li>
             <Link to="/user">

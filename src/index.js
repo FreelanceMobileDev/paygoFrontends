@@ -15,6 +15,7 @@ import CarLoanListingComponent from './Components/CarLoanListingComponent';
 import ContactUsComponent from './Components/ContactUsComponent';
 import AddBrandComponent from './Components/AddBrandComponent';
 import AddCarComponent from './Components/AddCarComponent';
+import ApprovedUserComponent from './Components/ApprovedUserComponent';
 const router = createBrowserRouter([
   {
     path: "/",
@@ -23,6 +24,10 @@ const router = createBrowserRouter([
   {
     path:"/privacy",
     element:<PrivacyPolicy />
+  },
+  {
+    path:"/approved-user",
+    element:<ApprovedUserComponent/>
   },
   {
     path:"/dashboard",
