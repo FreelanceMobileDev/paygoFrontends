@@ -32,8 +32,20 @@ const AddBrandComponent = () => {
     };
 
     const handleSubmit = async (values, { setSubmitting }) => {
-        // Perform form submission logic here
-        console.log("Form values:", values);
+      try {
+        const response = await axios.post(
+            "http://13.127.84.202:3213/api/car/add-brand",
+            { name: values.brandName } // Sending brand name from the form
+        );
+        console.log("API Response:", response.data);
+        setSubmitting(false);
+        handleCloseModal();
+        window.location.reload();
+    } catch (error) {
+        console.error("Error adding brand:", error);
+        // Handle any
+    }
+      console.log("Form values:", values);
         setSubmitting(false);
         handleCloseModal();
     };
@@ -46,7 +58,7 @@ const AddBrandComponent = () => {
             <h1>Add Brand</h1>
           </div>
           <div className="add-brand">
-            <button className="addBrandButton"> Add Brand</button>
+            <button className="addBrandButton" onClick={handleAddBrand}> Add Brand</button>
           </div>
           <div className="user-table-data">
           <Table
@@ -89,12 +101,13 @@ const AddBrandComponent = () => {
                                 <Field
                                     as={Form.Control}
                                     type="text"
-                                    name="name"
+                                    name="brandName"
                                     placeholder="Enter brand name"
                                 />
                                 
                                 <ErrorMessage name="brandName" component="div" className="text-danger" />
                             </Form.Group>
+                            <br/>
                             <Button variant="primary" type="submit">
                                 Add Brand
                             </Button>

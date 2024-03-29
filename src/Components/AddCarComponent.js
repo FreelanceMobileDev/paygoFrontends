@@ -7,23 +7,30 @@ import { Table, Modal, Form, Button } from "react-bootstrap";
 import { FaPen } from "react-icons/fa";
 
 const AddCarComponent = () => {
-  const [brands, setIBrands] = useState([]);
+  const [brands, setBrands] = useState([]);
   const [showModal, setShowModal] = useState(false);
+  const [showModalData, setShowModalData] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         const response = await axios.get(
+          "http://13.127.84.202:3213/api/car/get-brand-name"
+        );
+        const responseData = await axios.get(
           "http://13.127.84.202:3213/api/car/get-car-name"
         );
-        setIBrands(response?.data?.data || []);
+        console.log(responseData?.data?.data);
+        setShowModalData(responseData?.data?.data || []);
+        setBrands(response?.data?.data || []);
       } catch (error) {
-        console.error("Error fetching insurance data:", error);
+        console.error("Error fetching car data:", error);
       }
     };
     fetchData();
   }, []);
-  const handleAddBrand = () => {
+
+  const handleAddModel = () => {
     setShowModal(true);
   };
 
@@ -32,11 +39,26 @@ const AddCarComponent = () => {
   };
 
   const handleSubmit = async (values, { setSubmitting }) => {
-    // Perform form submission logic here
-    console.log("Form values:", values);
-    setSubmitting(false);
-    handleCloseModal();
+    try {
+      const response = await axios.post(
+        "http://13.127.84.202:3213/api/car/add-model",
+        {
+          id: values.brandId,
+          name: values.modelName,
+        }
+      );
+      console.log("API Response:", response.data);
+      setSubmitting(false);
+      handleCloseModal();
+      const updatedBrandsResponse = await axios.get(
+        "http://13.127.84.202:3213/api/car/get-brand-name"
+      );
+      setBrands(updatedBrandsResponse?.data?.data || []);
+    } catch (error) {
+      console.error("Error adding model:", error);
+    }
   };
+
   return (
     <div>
       <div className="header-container">
@@ -46,7 +68,10 @@ const AddCarComponent = () => {
             <h1>Add Model</h1>
           </div>
           <div className="add-brand">
-            <button className="addBrandButton"> Add Model</button>
+            <button className="addBrandButton" onClick={handleAddModel}>
+              {" "}
+              Add Model
+            </button>
           </div>
           <div className="user-table-data">
             <Table>
@@ -59,18 +84,19 @@ const AddCarComponent = () => {
                 </tr>
               </thead>
               <tbody>
-                {brands.map((brand, index) => (
-                  <tr key={index}>
-                    <td style={{ textAlign: "center" }}>{index + 1}</td>
-                    <td style={{ textAlign: "center" }}>
-                      {brand?.brandId?.name}
-                    </td>
-                    <td style={{ textAlign: "center" }}>{brand?.name}</td>
-                    <td style={{ textAlign: "center" }}>
-                      <FaPen />
-                    </td>
-                  </tr>
-                ))}
+                {Array.isArray(showModalData) &&
+                  showModalData.map((brand, index) => (
+                    <tr key={index}>
+                      <td style={{ textAlign: "center" }}>{index + 1}</td>
+                      <td style={{ textAlign: "center" }}>
+                        {brand?.brandId?.name}
+                      </td>
+                      <td style={{ textAlign: "center" }}>{brand?.name}</td>
+                      <td style={{ textAlign: "center" }}>
+                        <FaPen />
+                      </td>
+                    </tr>
+                  ))}
               </tbody>
             </Table>
           </div>
@@ -78,34 +104,50 @@ const AddCarComponent = () => {
       </div>
       <Modal show={showModal} onHide={handleCloseModal}>
         <Modal.Header closeButton>
-          <Modal.Title>Add New Brand</Modal.Title>
+          <Modal.Title>Add New Model</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <Formik
-            initialValues={{ brandName: "" }}
+            initialValues={{ brandId: "", modelName: "" }}
             validationSchema={Yup.object({
-              brandName: Yup.string().required("Brand name is required"),
+              brandId: Yup.string().required("Brand is required"),
+              modelName: Yup.string().required("Model name is required"),
             })}
             onSubmit={handleSubmit}
           >
             <FormikForm>
-              <Form.Group controlId="brandName">
-                <Form.Label>Brand Name</Form.Label>
+              <Form.Group controlId="brandId">
+                <Form.Label>Brand</Form.Label>
+                <Field as={Form.Control} component="select" name="brandId">
+                  <option value="">Select Brand</option>
+                  {brands.map((brand) => (
+                    <option key={brand._id} value={brand._id}>
+                      {brand.name}
+                    </option>
+                  ))}
+                </Field>
+                <ErrorMessage
+                  name="brandId"
+                  component="div"
+                  className="text-danger"
+                />
+              </Form.Group>
+              <Form.Group controlId="modelName">
+                <Form.Label>Model Name</Form.Label>
                 <Field
                   as={Form.Control}
                   type="text"
-                  name="name"
-                  placeholder="Enter brand name"
+                  name="modelName"
+                  placeholder="Enter model name"
                 />
-
                 <ErrorMessage
-                  name="brandName"
+                  name="modelName"
                   component="div"
                   className="text-danger"
                 />
               </Form.Group>
               <Button variant="primary" type="submit">
-                Add Brand
+                Add Model
               </Button>
             </FormikForm>
           </Formik>
@@ -114,4 +156,5 @@ const AddCarComponent = () => {
     </div>
   );
 };
+
 export default AddCarComponent;
