@@ -15,7 +15,7 @@ const UserComponent = () => {
   const fetchData = async () => {
     try {
       const response = await axios.get(
-        "http://13.127.84.202/:3213/api/user/get-approved-user"
+        "http://13.127.84.202:3213/api/user/get-approved-user"
       );
       setUserRequest(response?.data?.data?.getUserCount);
       setUserData(response?.data?.data?.getAllUser);
