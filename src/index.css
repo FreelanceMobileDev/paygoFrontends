@@ -108,12 +108,12 @@ margin-left: 20%;
   overflow-y: auto;
 }
 .logoSideBarComponent{
-  height: 40%;
+  height: 22%;
   width: 70%;
   background-color: #FF914D;
 }
 .main{
-  background-color: #FF914D;
+  background-color: #FE906C;
   color: white;
   height:115vh;
   width:70%;
@@ -145,7 +145,6 @@ margin-left: 20%;
 }
 .dashboard{
   width: 100%;
-  margin-left: 11%;
   margin-top: 5%;
 }
 .dashboard h1{
@@ -154,28 +153,31 @@ margin-left: 20%;
   flex: 1;
 }
 .dashboard-menu {
-  width: 70%;
+  width: 100%;
   display: flex;
   flex-wrap: wrap; 
 }
 
 .dashboard-menu-box {
   display: flex;
-  background-color: #FF914D;
-  height: 100px;
+  background-color: #FE906C;
+  height: 125px;
   border-radius: 10px;
   margin: 5px;
   color: white;
   text-align: center;
-  width:40%;
+  width: 40%;
+  margin-right: 9%;
   margin-top: auto;
   padding-top: auto;
   padding-bottom: auto;
+  margin-bottom: 4%;
 }
 .dashboard-menu-box h1{
-  padding: 15%;
+  padding: 3%;
   font-size: medium;
 }
+
 .user-container {
   display: flex;
   width: 100%;
@@ -241,7 +243,7 @@ margin-left: 20%;
 }
 
 .addBrandButton{
-  background-color: #FF914D;
+  background-color: #FE906C;
   height: 40px;
   border-radius: 15px;
   border-color: white;
