@@ -67,6 +67,7 @@ const UserComponent = () => {
                   <th>S.NO.</th>
                   <th>Name</th>
                   <th>Mobile Number</th>
+                  <th>Email</th>
                   <th>Gender</th>
                   <th>Action</th>
                 </tr>
@@ -78,6 +79,7 @@ const UserComponent = () => {
                     <td>{index + 1}</td>
                     <td>{user?.name}</td>
                     <td>{user?.phoneNumber}</td>
+                    <td>{user?.email}</td>
                     <td>
                       {user?.gender === "male" ? (
                         <Button variant="outline-warning">Male</Button>
