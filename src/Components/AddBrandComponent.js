@@ -37,7 +37,7 @@ const AddBrandComponent = () => {
     const handleSubmit = async (values, { setSubmitting }) => {
       try {
         const response = await axios.post(
-            "http://http://13.127.84.202/:3213/api/car/add-brand",
+            "http://http://13.127.84.202:3213/api/car/add-brand",
             { name: values.brandName } 
         );
         console.log("API Response:", response.data.data);

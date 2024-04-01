@@ -109,6 +109,7 @@ const UserComponent = () => {
         <Modal.Body>
           {selectedUser && (
             <div>
+              <img className="userImages" src="https://t4.ftcdn.net/jpg/02/29/75/83/360_F_229758328_7x8jwCwjtBMmC6rgFzLFhZoEpLobB6L8.jpg"/>
               <p><strong>Name:</strong> {selectedUser.name}</p>
               <p><strong>Mobile Number:</strong> {selectedUser.phoneNumber}</p>
               {/* Add more details as needed */}

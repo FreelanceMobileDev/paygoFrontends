@@ -112,6 +112,12 @@ margin-left: 20%;
   width: 70%;
   background-color: #FF914D;
 }
+.userImages{
+  width: 50%;
+  height: 50%;
+  border-radius: 53%;
+  margin-left: 25%;
+}
 .main{
   background-color: #FE906C;
   color: white;
