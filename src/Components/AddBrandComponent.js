@@ -17,7 +17,7 @@ const AddBrandComponent = () => {
         const fetchData = async () => {
           try {
             const response = await axios.get(
-              "http://http://13.127.84.202/:3213/api/car/get-brand-name"
+              "http://http://13.127.84.202:3213/api/car/get-brand-name"
             );
             setIBrands(response?.data?.data || []);
           } catch (error) {
