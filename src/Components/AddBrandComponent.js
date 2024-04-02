@@ -40,7 +40,6 @@ const AddBrandComponent = () => {
             "http://13.127.84.202:3213/api/car/add-brand",
             { name: values.brandName } 
         );
-        console.log("API Response:", response.data.data);
         setIBrands([...brands, response.data.data]); 
         setSubmitting(false);
         handleCloseModal();

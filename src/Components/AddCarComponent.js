@@ -17,16 +17,15 @@ const AddCarComponent = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(
+        const brandResponse = await axios.get(
           "http://13.127.84.202:3213/api/car/get-brand-name"
         );
-        console.log("====>>response", response);
-        const responseData = await axios.get(
+        const carResponse = await axios.get(
           "http://13.127.84.202:3213/api/car/get-car-name"
         );
-        setShowModalData(responseData?.data?.data || []);
-        setBrands(response?.data?.data || []);
-      } catch (error) {
+        setBrands(brandResponse?.data?.data || []);
+        setShowModalData(carResponse?.data?.data || []);
+} catch (error) {
         console.error("Error fetching car data:", error);
       }
     };
@@ -50,7 +49,7 @@ const AddCarComponent = () => {
           name: values.modelName,
         }
       );
-      setShowModalData(response?.data?.data)
+      setShowModalData([...showModalData,response?.data?.data])
       setSubmitting(false);
       handleCloseModal();
       const updatedBrandsResponse = await axios.get(
@@ -62,7 +61,7 @@ const AddCarComponent = () => {
       console.error("Error adding model:", error);
     }
   };
-
+  console.log("=-====>>>Admodels component",brands)
   return (
     <div>
       <div className="header-container">
@@ -106,6 +105,7 @@ const AddCarComponent = () => {
           </div>
         </div>
       </div>
+
       <AddModelModal
         showModal={showModal}
         handleCloseModal={handleCloseModal}
