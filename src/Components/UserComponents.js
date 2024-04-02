@@ -73,7 +73,7 @@ const UserComponent = () => {
               </Button>
             </div>
           </div>
-          <div className="user-container">
+          <div className="user-container-logo">
             <div className="user-logo">
               <img src={userLogo} alt="User Logo" />
             </div>

@@ -17,13 +17,13 @@ const AddCarComponent = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const brandResponse = await axios.get(
-          "http://13.127.84.202:3213/api/car/get-brand-name"
-        );
-        const carResponse = await axios.get(
-          "http://13.127.84.202:3213/api/car/get-car-name"
-        );
-        setBrands(brandResponse?.data?.data || []);
+          const brandResponse = await axios.get(
+            "http://13.127.84.202:3213/api/car/get-brand-name"
+          );
+          setBrands(brandResponse?.data?.data || []);
+          const carResponse = await axios.get(
+            "http://13.127.84.202:3213/api/car/get-car-name"
+          );
         setShowModalData(carResponse?.data?.data || []);
 } catch (error) {
         console.error("Error fetching car data:", error);
@@ -49,19 +49,20 @@ const AddCarComponent = () => {
           name: values.modelName,
         }
       );
+      console.log("====>>>>>>>>>resposne modeals",response?.data)
       setShowModalData([...showModalData,response?.data?.data])
       setSubmitting(false);
       handleCloseModal();
       const updatedBrandsResponse = await axios.get(
         "http://13.127.84.202:3213/api/car/get-brand-name"
       );
-      console.log("====>>updatedBrandsResponse", updatedBrandsResponse);
-      setBrands(updatedBrandsResponse?.data?.data || []);
+      setBrands([ ...brands,updatedBrandsResponse?.data?.data] || []);
     } catch (error) {
       console.error("Error adding model:", error);
     }
   };
-  console.log("=-====>>>Admodels component",brands)
+  console.log("======>>showModalData",showModalData)
+
   return (
     <div>
       <div className="header-container">
