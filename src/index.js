@@ -18,6 +18,8 @@ import ContactUsComponent from './Components/ContactUsComponent';
 import AddBrandComponent from './Components/AddBrandComponent';
 import AddCarComponent from './Components/AddCarComponent';
 import ApprovedUserComponent from './Components/ApprovedUserComponent';
+import FinancialLoanListing from './Components/FinancialLoanComponent';
+import ClaimLodgeListing from './Components/ClaimLodgeListingComponent';
 
 const App = () => (
   <Router>
@@ -31,6 +33,8 @@ const App = () => (
       <Route path="/add-brand" element={<AddBrandComponent />} />
       <Route path="/add-car" element={<AddCarComponent />} />
       <Route path="/insurance-loan" element={<CarLoanListingComponent />} />
+      <Route path="/finance-loan" element={<FinancialLoanListing />} />
+      <Route path="/claim-lodge" element={<ClaimLodgeListing />} />
       <Route path="*" element={<Navigate to="/" />} />
     </Routes>
   </Router>

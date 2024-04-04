@@ -3,8 +3,8 @@ import SidebarComponent from "./SidebarComponent";
 import axios from "axios";
 import { Table, Button, Modal } from "react-bootstrap";
 
-const FinancialLoanListing = () => {
-  const [financialLoan, setFinancialLoan] = useState([]);
+const ClaimLodgeListing = () => {
+  const [claimData, setClaimData] = useState([]);
   const [selectedUser, setSelectedUser] = useState(null);
   const [showModal, setShowModal] = useState(false);
 
@@ -12,9 +12,9 @@ const FinancialLoanListing = () => {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          "http://13.127.84.202:3213/api/insurance/get-financial-list"
+          "http://13.127.84.202:3213/api/insurance/get-all-claim-data"
         );
-        setFinancialLoan(response?.data?.data || []);
+        setClaimData(response?.data?.data || []);
       } catch (error) {
         console.error("Error fetching insurance data:", error);
       }
@@ -49,18 +49,22 @@ const FinancialLoanListing = () => {
                 <tr>
                   <th>S.NO.</th>
                   <th>Name</th>
-                  <th>Financial Loan Type</th>
-                  <th>Loan Amount </th>
+                  <th>Claim Name</th>
+                  <th>Claim Description </th>
+                  <th>Claiming</th>
+                  <th>Claim Date</th>
                   <th>View Details</th>
                 </tr>
               </thead>
               <tbody>
-                {financialLoan.map((user, index) => (
+                {claimData.map((user, index) => (
                   <tr key={index}>
                     <td>{index + 1}</td>
                     <td>{user?.userId?.name}</td>
-                    <td>{user?.loanType}</td>
-                    <td>{user?.loanAmount}</td>
+                    <td>{user?.claimName}</td>
+                    <td>{user?.claimDescription}</td>
+                    <td>{user?.claiming}</td>
+                    <td>{user?.claimDate}</td>
                     <td>
                       <Button
                         variant="success"
@@ -120,4 +124,4 @@ const FinancialLoanListing = () => {
   );
 };
 
-export default FinancialLoanListing;
+export default ClaimLodgeListing;
