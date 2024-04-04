@@ -26,30 +26,16 @@ const App = createBrowserRouter([
   {
     path: "/",
     element: <DashboardComponent />,
-  },
-  {
-    path:"/approved-user",
-    element:<ApprovedUserComponent />
-  }
-]);
-// const App = () => (
-//   <Router>
-//     <Routes>
-//       <Route path="/" element={<DashboardComponent />} />
-//       <Route path="/privacy" element={<PrivacyPolicy />} />
-//       <Route path="/approved-user" element={<ApprovedUserComponent />} />
-//       <Route path="/dashboard" element={<DashboardComponent />} />
-//       <Route path="/user" element={<UserComponent />} />
-//       <Route path="/contact-us" element={<ContactUsComponent />} />
-//       <Route path="/add-brand" element={<AddBrandComponent />} />
-//       <Route path="/add-car" element={<AddCarComponent />} />
-//       <Route path="/insurance-loan" element={<CarLoanListingComponent />} />
-//       <Route path="/finance-loan" element={<FinancialLoanListing />} />
-//       <Route path="/claim-lodge" element={<ClaimLodgeListing />} />
-//       <Route path="*" element={<Navigate to="/" />} />
-//     </Routes>
-//   </Router>
-// );
+ 
+  children: [
+      {
+        path:"/approved-user",
+        element:<ApprovedUserComponent />
+      }
+ 
+]
+},
+])
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
