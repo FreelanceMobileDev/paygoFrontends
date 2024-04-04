@@ -3,7 +3,7 @@ import SidebarComponent from "./SidebarComponent";
 import axios from "axios";
 import { Table, Button, Modal } from "react-bootstrap";
 
-const CarLoanListingComponent = () => {
+const FinancialLoanListing = () => {
   const [insuranceLoan, setInsuranceLoan] = useState([]);
   const [selectedUser, setSelectedUser] = useState(null);
   const [showModal, setShowModal] = useState(false);
@@ -12,7 +12,7 @@ const CarLoanListingComponent = () => {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          "http://13.127.84.202:3213/api/insurance/get-insurance"
+          "http://13.127.84.202:3213/api/insurance/get-financial-list"
         );
         setInsuranceLoan(response?.data?.data || []);
       } catch (error) {
@@ -122,4 +122,4 @@ const CarLoanListingComponent = () => {
   );
 };
 
-export default CarLoanListingComponent;
+export default FinancialLoanListing;

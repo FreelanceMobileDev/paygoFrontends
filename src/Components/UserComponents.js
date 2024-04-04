@@ -46,7 +46,6 @@ const UserComponent = () => {
         userId: user._id,
         isVerified: false,
       });
-      // Filter out the rejected user from userData array
       const updatedUserData = userData.filter((u) => u._id !== user._id);
       setUserData(updatedUserData);
     } catch (error) {

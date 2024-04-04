@@ -92,7 +92,7 @@ const UserComponent = () => {
                         variant="primary"
                         onClick={() => handleShowDetails(user)} // Pass user data to the function
                       >
-                        Show Details
+                        View Info
                       </Button>
                     </td>
                   </tr>
