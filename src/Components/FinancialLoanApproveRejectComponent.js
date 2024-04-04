@@ -3,7 +3,7 @@ import SidebarComponent from "./SidebarComponent";
 import axios from "axios";
 import { Table, Button, Modal } from "react-bootstrap";
 
-const FinancialLoanListing = () => {
+const FinancialLoanApprovedRejectListing = () => {
   const [financialLoan, setFinancialLoan] = useState([]);
   const [selectedUser, setSelectedUser] = useState(null);
   const [showModal, setShowModal] = useState(false);
@@ -12,7 +12,7 @@ const FinancialLoanListing = () => {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          "http://13.127.84.202:3213/api/insurance/get-financial-list"
+          "http://13.127.84.202:3213/api/insurance/get-approved-reject-finance"
         );
         setFinancialLoan(response?.data?.data || []);
       } catch (error) {
@@ -30,22 +30,6 @@ const FinancialLoanListing = () => {
   const handleCloseModal = () => {
     setShowModal(false);
   };
-
-  const handleUpdateStatus = async (user, status) => {
-    try {
-      const response = await axios.put(
-        `http://13.127.84.202:3213/api/insurance/update-financial-status?id=${user._id}`,
-        { status }
-      );
-      const updatedFinancialLoan = financialLoan.map((item) =>
-        item.id === user.id ? { ...item, status } : item
-      );
-      setFinancialLoan(updatedFinancialLoan);
-    } catch (error) {
-      console.error("Error updating financial status:", error);
-    }
-  };
-
   return (
     <div>
       <div className="header-container">
@@ -67,7 +51,6 @@ const FinancialLoanListing = () => {
                   <th>Financial Loan Type</th>
                   <th>Loan Amount</th>
                   <th>Status</th>
-                  <th>Action</th>
                   <th>View Details</th>
                 </tr>
               </thead>
@@ -100,21 +83,6 @@ const FinancialLoanListing = () => {
                           : user.status === "rejected"
                           ? "Rejected"
                           : user.status}
-                      </Button>
-                    </td>
-                    <td>
-                      <Button
-                        variant="success"
-                        className="mr-2"
-                        onClick={() => handleUpdateStatus(user, "approved")}
-                      >
-                        Approved
-                      </Button>&nbsp;
-                      <Button
-                        variant="danger"
-                        onClick={() => handleUpdateStatus(user, "rejected")}
-                      >
-                        Reject
                       </Button>
                     </td>
                     <td>
@@ -175,4 +143,4 @@ const FinancialLoanListing = () => {
   );
 };
 
-export default FinancialLoanListing;
+export default FinancialLoanApprovedRejectListing;

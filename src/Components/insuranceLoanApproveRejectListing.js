@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
 import SidebarComponent from "./SidebarComponent";
 import axios from "axios";
-import { Table, Button, Modal } from "react-bootstrap";
+import { Table, Button, Modal, Dropdown } from "react-bootstrap";
 
-const FinancialLoanListing = () => {
-  const [financialLoan, setFinancialLoan] = useState([]);
+const InsuranceLoanApproveRejectList = () => {
+  const [insuranceLoan, setInsuranceLoan] = useState([]);
   const [selectedUser, setSelectedUser] = useState(null);
   const [showModal, setShowModal] = useState(false);
 
@@ -12,9 +12,10 @@ const FinancialLoanListing = () => {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          "http://13.127.84.202:3213/api/insurance/get-financial-list"
+          "http://13.127.84.202:3213/api/insurance/get-approved-reject-insurance"
         );
-        setFinancialLoan(response?.data?.data || []);
+        console.log(response);
+        setInsuranceLoan(response?.data?.data || []);
       } catch (error) {
         console.error("Error fetching insurance data:", error);
       }
@@ -30,28 +31,12 @@ const FinancialLoanListing = () => {
   const handleCloseModal = () => {
     setShowModal(false);
   };
-
-  const handleUpdateStatus = async (user, status) => {
-    try {
-      const response = await axios.put(
-        `http://13.127.84.202:3213/api/insurance/update-financial-status?id=${user._id}`,
-        { status }
-      );
-      const updatedFinancialLoan = financialLoan.map((item) =>
-        item.id === user.id ? { ...item, status } : item
-      );
-      setFinancialLoan(updatedFinancialLoan);
-    } catch (error) {
-      console.error("Error updating financial status:", error);
-    }
-  };
-
   return (
     <div>
       <div className="header-container">
         <SidebarComponent />
         <div className="user-container">
-          <h1>Finance Loans Request</h1>
+          <h1>Insurance Loans Request </h1>
           <div className="user-table-data">
             <Table
               striped
@@ -64,20 +49,21 @@ const FinancialLoanListing = () => {
                 <tr>
                   <th>S.NO.</th>
                   <th>Name</th>
-                  <th>Financial Loan Type</th>
-                  <th>Loan Amount</th>
+                  <th>Mobile Number</th>
+                  <th>Loan Term</th>
+                  <th>Vehicle Value</th>
                   <th>Status</th>
                   <th>Action</th>
-                  <th>View Details</th>
                 </tr>
               </thead>
               <tbody>
-                {financialLoan.map((user, index) => (
+                {insuranceLoan.map((user, index) => (
                   <tr key={index}>
                     <td>{index + 1}</td>
                     <td>{user?.userId?.name}</td>
-                    <td>{user?.loanType}</td>
-                    <td>{user?.loanAmount}</td>
+                    <td>{user?.userId?.phoneNumber}</td>
+                    <td>{user?.loanTerm}</td>
+                    <td>{user?.vehicleValue}</td>
                     <td>
                       <Button
                         variant={
@@ -104,21 +90,6 @@ const FinancialLoanListing = () => {
                     </td>
                     <td>
                       <Button
-                        variant="success"
-                        className="mr-2"
-                        onClick={() => handleUpdateStatus(user, "approved")}
-                      >
-                        Approved
-                      </Button>&nbsp;
-                      <Button
-                        variant="danger"
-                        onClick={() => handleUpdateStatus(user, "rejected")}
-                      >
-                        Reject
-                      </Button>
-                    </td>
-                    <td>
-                      <Button
                         variant="secondary"
                         onClick={() => handleShowUserInfo(user)}
                       >
@@ -134,36 +105,74 @@ const FinancialLoanListing = () => {
       </div>
       <Modal show={showModal} onHide={handleCloseModal}>
         <Modal.Header closeButton>
-          <Modal.Title>Finance Loan Details</Modal.Title>
+          <Modal.Title>Insurance Loan Details</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-        
-          {selectedUser && (
-            <>
-              <div className="drivingLicence">
+          <div className="drivingLicence">
             <img
               className="drivingLicenceImage"
-              src={selectedUser?.tinRegistrationImage}
-              alt="Facial Picture"
+              src={selectedUser?.drivingLicenceImage}
+              alt="Driving License"
             />
           </div>
-              <p><strong>Loan Terms:</strong>{selectedUser?.loanTerms}</p>
-              <p><strong>Loan Amount:</strong>{selectedUser?.loanAmount}</p>
-              <p><strong>Reason For Loan:</strong>{selectedUser?.reasonForLoan}</p>
-              <p><strong>Bank Account Number:</strong> {selectedUser?.accountNumber}</p>
-              <p><strong>Bank Name:</strong> {selectedUser?.bankName}</p>
-              <p><strong>Name:</strong> {selectedUser?.userId?.name}</p>
-              <p><strong>Upload Id:</strong> {selectedUser?.uploadid}</p>
-              <p><strong>Colletral:</strong> {selectedUser?.collateral}</p>
-              <p><strong>Collateral Value ApprovedBy:</strong> {selectedUser?.collateralValueApprovedBy}</p>
-              <p><strong>Reason For Loan:</strong> {selectedUser?.reasonForLoan}</p>
-              <p><strong>Tin Number:</strong> {selectedUser?.tinNumber}</p>
-              <p><strong>Company Name:</strong> {selectedUser?.companyName}</p>
-              <p><strong>Address:</strong> {selectedUser?.address}</p>
-              <p><strong>Employement Address:</strong> {selectedUser?.employementAddress}</p>
-              <p><strong>Policy Number:</strong> {selectedUser?.policyNumber}</p>
-            </>
-          )}
+
+          <p>
+            <strong>Bank Account Number:</strong>{" "}
+            {selectedUser?.bankAccountNumber}
+          </p>
+          <p>
+            <strong>Bank Name:</strong> {selectedUser?.bankName}
+          </p>
+          <p>
+            <strong>Name:</strong> {selectedUser?.userId?.name}
+          </p>
+          <p>
+            <strong>Mobile Number:</strong> {selectedUser?.userId?.phoneNumber}
+          </p>
+          <p>
+            <strong>Car Condition:</strong> {selectedUser?.carCondition}
+          </p>
+          <p>
+            <strong>Color:</strong> {selectedUser?.color}
+          </p>
+          <p>
+            <strong>Employment Address:</strong>{" "}
+            {selectedUser?.employmentAddress}
+          </p>
+          <p>
+            <strong>Engine No.:</strong> {selectedUser?.engineNo}
+          </p>
+          <p>
+            <strong>Form Filled By:</strong> {selectedUser?.formFilledBy}
+          </p>
+          <p>
+            <strong>Fuel Type:</strong> {selectedUser?.fuelType}
+          </p>
+          <p>
+            <strong>Insurance Company:</strong> {selectedUser?.insuranceCompany}
+          </p>
+          <p>
+            <strong>License Plate No:</strong> {selectedUser?.licensePlateNo}
+          </p>
+          <p>
+            <strong>Loan Term:</strong> {selectedUser?.loanTerm}
+          </p>
+          <p>
+            <strong>Vehicle Brand:</strong> {selectedUser?.vehicleBrand}
+          </p>
+          <p>
+            <strong>Vehicle Libre:</strong> {selectedUser?.vehicleLibre}
+          </p>
+          <p>
+            <strong>Vehicle Model:</strong> {selectedUser?.vehicleModel}
+          </p>
+          <p>
+            <strong>Vehicle Name:</strong> {selectedUser?.vehicleName}
+          </p>
+          <p>
+            <strong>Vehicle Registration No:</strong>{" "}
+            {selectedUser?.vehicleRegistrationNo}
+          </p>
         </Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={handleCloseModal}>
@@ -175,4 +184,4 @@ const FinancialLoanListing = () => {
   );
 };
 
-export default FinancialLoanListing;
+export default InsuranceLoanApproveRejectList;

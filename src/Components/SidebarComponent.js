@@ -24,15 +24,23 @@ const SidebarComponent = () => {
           <li>
             <Link to="/insurance-loan">
               {" "}
-              <span> Insurance Loan</span>
+              <span> Insurance Request</span>
             </Link>
           </li>
           <li>
-              <Link to="/contact-us"><span>Contact Us</span></Link>
+            <Link to="/insurance-loan-approve-reject"><span>Insurance Loan</span></Link>
           </li>
           <li>
-            <Link to="/finance-loan"><span> Financial Loan</span></Link>
+            <Link to="/finance-loan"><span> Financial Request</span></Link>
           </li>
+          <li>
+            <Link to="/finance-loan-approve-reject"><span> Financial Loan</span></Link>
+          </li>
+        
+          <li>
+              <Link to="/contact-us"><span>Contact Us</span></Link>
+          </li>
+        
           <li>
             <Link to="/claim-lodge"><span> Claim Lodge Listing</span></Link>
           </li>

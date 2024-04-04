@@ -183,7 +183,12 @@ margin-left: 20%;
   padding: 3%;
   font-size: medium;
 }
-
+.drivingLicenceImage{
+  width: 150px;
+  height: 150px;
+  border-radius: 96px;
+  margin-left: 30%;
+}
 .user-container {
   display: flex;
   width: 100%;
