@@ -36,7 +36,7 @@ const InsuranceLoanApproveRejectList = () => {
       <div className="header-container">
         <SidebarComponent />
         <div className="user-container">
-          <h1>Insurance Loans Request </h1>
+          <h1>Insurance Loans </h1>
           <div className="user-table-data">
             <Table
               striped
