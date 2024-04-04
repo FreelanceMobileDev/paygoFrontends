@@ -7,6 +7,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import {
   createBrowserRouter,
   BrowserRouter as Router,
+  RouterProvider,
   Routes,
   Route,
   Navigate
@@ -21,20 +22,15 @@ import AddCarComponent from './Components/AddCarComponent';
 import ApprovedUserComponent from './Components/ApprovedUserComponent';
 import FinancialLoanListing from './Components/FinancialLoanComponent';
 import ClaimLodgeListing from './Components/ClaimLodgeListingComponent';
-
-
 const App = createBrowserRouter([
   {
     path: "/",
     element: <DashboardComponent />,
-    children: [
-      {
-        path: "/approved-user",
-        element: <ApprovedUserComponent />,
-      },
-    ],
-    errorElement: <Error />,
   },
+  {
+    path:"/approved-user",
+    element:<ApprovedUserComponent />
+  }
 ]);
 // const App = () => (
 //   <Router>
@@ -57,8 +53,8 @@ const App = createBrowserRouter([
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
-    <App />
-  </React.StrictMode>
+  <RouterProvider router={App} />
+</React.StrictMode>
 );
 
 reportWebVitals();
