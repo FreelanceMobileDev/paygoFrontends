@@ -121,7 +121,7 @@ const CarLoanListingComponent = () => {
                         variant="secondary"
                         onClick={() => handleShowUserInfo(user)}
                       >
-                        Show Vehicle Info
+                        Loan Info
                       </Button>
                     </td>
                   </tr>
