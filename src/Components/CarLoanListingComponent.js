@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import SidebarComponent from "./SidebarComponent";
 import axios from "axios";
-import { Table, Button, Modal } from "react-bootstrap";
+import { Table, Button, Modal,Dropdown } from "react-bootstrap";
 
 const CarLoanListingComponent = () => {
   const [insuranceLoan, setInsuranceLoan] = useState([]);
@@ -30,7 +30,20 @@ const CarLoanListingComponent = () => {
   const handleCloseModal = () => {
     setShowModal(false);
   };
-
+  const handleUpdateStatus = async (user, status) => {
+    try {
+      const response = await axios.put(
+        `http://13.127.84.202:3213/api/insurance/update-insurance-status?id=${user._id}`,
+        { status }
+      );
+      const updateInsuranceLoan = insuranceLoan.map((item) =>
+        item.id === user.id ? { ...item, status } : item
+      );
+      setInsuranceLoan(updateInsuranceLoan);
+    } catch (error) {
+      console.error("Error updating financial status:", error);
+    }
+  };
   return (
     <div>
       <div className="header-container">
@@ -52,6 +65,8 @@ const CarLoanListingComponent = () => {
                   <th>Mobile Number</th>
                   <th>Vehicle Brand</th>
                   <th>Vehicle Name</th>
+                  <th>Status</th>
+                  <th>Actions Status</th>
                   <th>Action</th>
                 </tr>
               </thead>
@@ -63,6 +78,44 @@ const CarLoanListingComponent = () => {
                     <td>{user?.userId?.phoneNumber}</td>
                     <td>{user?.vehicleModel}</td>
                     <td>{user?.vehicleName}</td>
+                    <td>
+                      <Button variant="primary">
+                        {user?.status === "in_progress"
+                          ? "In Progress"
+                          : user?.status === "approved"
+                          ? "Approved"
+                          : user?.status === "rejected"
+                          ? "Rejected"
+                          : user?.status}
+                      </Button>
+                    </td>
+                    <td>
+                      <Dropdown>
+                        <Dropdown.Toggle variant="primary" id="dropdown-basic">
+                          Actions
+                        </Dropdown.Toggle>
+
+                        <Dropdown.Menu>
+                          <Dropdown.Item
+                            onClick={() =>
+                              handleUpdateStatus(user, "in_progress")
+                            }
+                          >
+                            In Progress
+                          </Dropdown.Item>
+                          <Dropdown.Item
+                            onClick={() => handleUpdateStatus(user, "approved")}
+                          >
+                            Approved
+                          </Dropdown.Item>
+                          <Dropdown.Item
+                            onClick={() => handleUpdateStatus(user, "rejected")}
+                          >
+                            Reject
+                          </Dropdown.Item>
+                        </Dropdown.Menu>
+                      </Dropdown>
+                    </td>
                     <td>
                       <Button
                         variant="secondary"

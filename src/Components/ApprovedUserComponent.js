@@ -8,7 +8,6 @@ import { Table } from "react-bootstrap";
 
 const UserComponent = () => {
   const [userData, setUserData] = useState([]);
-  const [userRequest, setUserRequest] = useState([]);
   const [selectedUser, setSelectedUser] = useState(null); 
   const [showDetailsModal, setShowDetailsModal] = useState(false);  
   console.log(userData)
@@ -41,7 +40,7 @@ const UserComponent = () => {
         <SidebarComponent />
         <div className="user-container">
           <div className="search-container">
-            <h1>Approved User</h1>
+            <h1> User</h1>
             <div className="user-search-container">
               <input
                 type="text"

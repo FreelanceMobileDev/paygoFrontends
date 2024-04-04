@@ -36,7 +36,7 @@ const ClaimLodgeListing = () => {
       <div className="header-container">
         <SidebarComponent />
         <div className="user-container">
-          <h1>Finance Loans</h1>
+          <h1>Claim Lodge Loans</h1>
           <div className="user-table-data">
             <Table
               striped
