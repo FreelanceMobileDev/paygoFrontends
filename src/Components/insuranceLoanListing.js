@@ -68,7 +68,7 @@ const CarLoanListingComponent = () => {
                   <th>Loan Term</th>
                   <th>Vehicle Value</th>
                   <th>Approved/Reject</th>
-                  <th>Action</th>
+                  <th>View Details</th>
                 </tr>
               </thead>
               <tbody>
