@@ -87,17 +87,6 @@ const SidebarComponent = () => {
               <span>Add Models</span>
             </Link>
           </li>
-          <li>
-            <Link>
-              <span>Add agent</span>
-            </Link>
-          </li>
-          <li>
-            <Link>
-              {" "}
-              <span> Messages</span>
-            </Link>
-          </li>
         </ul>
       </div>
     </div>
