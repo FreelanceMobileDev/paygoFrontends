@@ -3,23 +3,22 @@ import SidebarComponent from "./SidebarComponent";
 import axios from "axios";
 import { userLogo } from "../constants/constantMessages";
 import { FaSearch } from "react-icons/fa";
-import { Button,Modal } from "react-bootstrap";
+import { Button, Modal } from "react-bootstrap"; 
 import { Table } from "react-bootstrap";
 
-const UserComponent = () => {
+const BlockUserComponent = () => {
   const [userData, setUserData] = useState([]);
-  const [userRequest, setUserRequest] = useState([]);
   const [selectedUser, setSelectedUser] = useState(null); 
   const [showDetailsModal, setShowDetailsModal] = useState(false);
 
+  console.log(userData)
 
   const fetchData = async () => {
     try {
       const response = await axios.get(
-        "http://13.127.84.202:3213/api/user/list-user-details"
+        "http://13.127.84.202:3213/api/get-block-user"
       );
-      setUserRequest(response?.data?.data?.getUserCount);
-      setUserData(response?.data?.data?.getAllUser);
+      setUserData(response?.data?.data);
     } catch (error) {
       console.error("Error fetching user data:", error);
     }
@@ -28,44 +27,17 @@ const UserComponent = () => {
   useEffect(() => {
     fetchData();
   }, []);
-
-  const handleApprove = async (user) => {
-    try {
-      await axios.put("http://13.127.84.202:3213/api/user/update-user-status", {
-        userId: user._id,
-        isVerified: true,
-      });
-      // Filter out the approved user from userData array
-      const updatedUserData = userData.filter((u) => u._id !== user._id);
-      setUserData(updatedUserData);
-    } catch (error) {
-      console.error("Error approving user:", error);
-    }
-  };
   const handleShowDetails = (user) => {
     setSelectedUser(user)
     setShowDetailsModal(true)
   };
-  const handleReject = async (user) => {
-    try {
-      await axios.put("http://13.127.84.202:3213/api/user/update-user-status", {
-        userId: user._id,
-        isVerified: false,
-      });
-      const updatedUserData = userData.filter((u) => u._id !== user._id);
-      setUserData(updatedUserData);
-    } catch (error) {
-      console.error("Error rejecting user:", error);
-    }
-  };
-
   return (
     <div>
       <div className="header-container">
         <SidebarComponent />
         <div className="user-container">
           <div className="search-container">
-            <h1>User Request</h1>
+            <h1>Blocked User</h1>
             <div className="user-search-container">
               <input
                 type="text"
@@ -76,14 +48,6 @@ const UserComponent = () => {
               <Button variant="primary">
                 <FaSearch />
               </Button>
-            </div>
-          </div>
-          <div className="user-container-logo">
-            <div className="user-logo">
-              <img src={userLogo} alt="User Logo" />
-            </div>
-            <div className="user-text">
-              <b>{userRequest}</b> Total User Request
             </div>
           </div>
           <div className="user-table-data">
@@ -99,17 +63,20 @@ const UserComponent = () => {
                   <th>S.NO.</th>
                   <th>Name</th>
                   <th>Mobile Number</th>
+                  <th>Email</th>
                   <th>Gender</th>
-                  <th>Show Details</th>
-                  <th>Action</th>
+                  <th>View Details</th>
+ 
                 </tr>
               </thead>
               <tbody>
-                {userData.map((user, index) => (
+
+                {userData?.map((user, index) => (
                   <tr key={index}>
                     <td>{index + 1}</td>
                     <td>{user?.name}</td>
                     <td>{user?.phoneNumber}</td>
+                    <td>{user?.email}</td>
                     <td>
                       {user?.gender === "male" ? (
                         <Button variant="outline-warning">Male</Button>
@@ -118,35 +85,9 @@ const UserComponent = () => {
                       )}
                     </td>
                     <td>
-                      {user?.isVerified ? (
-                        <Button
-                          variant="success"
-                          onClick={() => handleApprove(user)}
-                        >
-                          Approve
-                        </Button>
-                      ) : (
-                        <>
-                          <Button
-                            variant="success"
-                            onClick={() => handleApprove(user)}
-                            style={{ marginRight: "5px" }}
-                          >
-                            Approve
-                          </Button>
-                          <Button
-                            variant="danger"
-                            onClick={() => handleReject(user)}
-                          >
-                            Reject
-                          </Button>
-                        </>
-                      )}
-                    </td>
-                    <td>
                       <Button
                         variant="primary"
-                        onClick={() => handleShowDetails(user)} 
+                        onClick={() => handleShowDetails(user)} // Pass user data to the function
                       >
                         View Info
                       </Button>
@@ -158,7 +99,7 @@ const UserComponent = () => {
           </div>
         </div>
       </div>
-      
+
       <Modal show={showDetailsModal} onHide={() => setShowDetailsModal(false)}>
         <Modal.Header closeButton>
           <Modal.Title>User Details</Modal.Title>
@@ -166,7 +107,7 @@ const UserComponent = () => {
         <Modal.Body>
           {selectedUser && (
             <div>
-              <img className="userImages" src={selectedUser?.image ||"https://w7.pngwing.com/pngs/178/595/png-transparent-user-profile-computer-icons-login-user-avatars-thumbnail.png"}/>
+              <img className="userImages" src={selectedUser?.image||"https://w7.pngwing.com/pngs/178/595/png-transparent-user-profile-computer-icons-login-user-avatars-thumbnail.png"}/>
               <p><strong>Name:</strong> {selectedUser?.name}</p>
               <p><strong>Email:</strong> {selectedUser?.email}</p>
               <p><strong>Is Verified:</strong> {selectedUser?.isVerified}</p>
@@ -211,4 +152,4 @@ const UserComponent = () => {
   );
 };
 
-export default UserComponent;
+export default BlockUserComponent;

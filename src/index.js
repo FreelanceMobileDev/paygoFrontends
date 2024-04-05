@@ -22,6 +22,7 @@ import FinancialLoanListing from './Components/FinancialLoanComponent';
 import ClaimLodgeListing from './Components/ClaimLodgeListingComponent';
 import FinancialLoanApprovedRejectListing from './Components/FinancialLoanApproveRejectComponent';
 import InsuranceLoanApproveRejectList from './Components/insuranceLoanApproveRejectListing.js';
+import BlockUserComponent from './Components/BlockUserComponent.js';
 
 const App = () => (
   <Router>
@@ -39,6 +40,7 @@ const App = () => (
       <Route path="/claim-lodge" element={<ClaimLodgeListing />} />
       <Route path="/insurance-loan-approve-reject" element={<InsuranceLoanApproveRejectList />} />
       <Route path="/finance-loan-approve-reject" element={<FinancialLoanApprovedRejectListing />} />
+      <Route path="/block-user" element={<BlockUserComponent />} />
       <Route path="*" element={<Navigate to="/" />} />
     </Routes>
   </Router>

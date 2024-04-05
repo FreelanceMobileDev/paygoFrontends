@@ -113,20 +113,19 @@ margin-left: 20%;
   background-color: #FF914D;
 }
 .userImages{
-  width: 50%;
-  height: 50%;
-  border-radius: 53%;
+  width: 210px;
+  height: 198px;
+  border-radius: 68%;
   margin-left: 25%;
 }
 .main{
   background-color: #FF914D;
-  color: white;
+  
   height:115vh;
   width:70%;
 }
 .main ul.menu li a{
   text-decoration: none;
-  color:#f2f1f0;
   transition: color 0.3s ease;
   font-size: 15px;
   padding-left: 10px;
@@ -151,7 +150,6 @@ margin-left: 20%;
 }
 .dashboard{
   width: 100%;
-  margin-top: 5%;
 }
 .dashboard h1{
   margin:1%;
@@ -266,4 +264,12 @@ margin-left: 20%;
   max-width: 70%;
   max-height: 70%;
   border-radius: 50%; /* Ensure the image remains within the circular boundary */
+}
+.active-menu span{
+  color: black; 
+}
+
+.inactive-menu span{
+  background-color: #FF914D;
+  color: white;
 }

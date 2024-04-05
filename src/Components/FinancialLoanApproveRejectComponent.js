@@ -35,7 +35,7 @@ const FinancialLoanApprovedRejectListing = () => {
       <div className="header-container">
         <SidebarComponent />
         <div className="user-container">
-          <h1>Finance Loans Request</h1>
+          <h1>Finance Loans</h1>
           <div className="user-table-data">
             <Table
               striped
