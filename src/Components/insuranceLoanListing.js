@@ -67,7 +67,6 @@ const CarLoanListingComponent = () => {
                   <th>Mobile Number</th>
                   <th>Loan Term</th>
                   <th>Vehicle Value</th>
-                  <th>Status</th>
                   <th>Approved/Reject</th>
                   <th>Action</th>
                 </tr>
@@ -80,30 +79,6 @@ const CarLoanListingComponent = () => {
                     <td>{user?.userId?.phoneNumber}</td>
                     <td>{user?.loanTerm}</td>
                     <td>{user?.vehicleValue}</td>
-                    <td>
-                      <Button
-                        variant={
-                          user.status === "rejected" ? "danger" : "success"
-                        }
-                        style={
-                          user.status === "in_progress"
-                            ? {
-                                backgroundColor: "#FF914D",
-                                borderColor: "#FF914D",
-                                color: "white",
-                              }
-                            : {}
-                        }
-                      >
-                        {user.status === "in_progress"
-                          ? "In Progress"
-                          : user.status === "approved"
-                          ? "Approved"
-                          : user.status === "rejected"
-                          ? "Rejected"
-                          : user.status}
-                      </Button>
-                    </td>
                     <td>
                       <td>
                         <Button

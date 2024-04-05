@@ -66,7 +66,6 @@ const FinancialLoanListing = () => {
                   <th>Name</th>
                   <th>Financial Loan Type</th>
                   <th>Loan Amount</th>
-                  <th>Status</th>
                   <th>Action</th>
                   <th>View Details</th>
                 </tr>
@@ -78,30 +77,6 @@ const FinancialLoanListing = () => {
                     <td>{user?.userId?.name}</td>
                     <td>{user?.loanType}</td>
                     <td>{user?.loanAmount}</td>
-                    <td>
-                      <Button
-                        variant={
-                          user.status === "rejected" ? "danger" : "success"
-                        }
-                        style={
-                          user.status === "in_progress"
-                            ? {
-                                backgroundColor: "#FF914D",
-                                borderColor: "#FF914D",
-                                color: "white",
-                              }
-                            : {}
-                        }
-                      >
-                        {user.status === "in_progress"
-                          ? "In Progress"
-                          : user.status === "approved"
-                          ? "Approved"
-                          : user.status === "rejected"
-                          ? "Rejected"
-                          : user.status}
-                      </Button>
-                    </td>
                     <td>
                       <Button
                         variant="success"

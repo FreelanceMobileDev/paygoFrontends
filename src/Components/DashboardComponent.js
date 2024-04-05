@@ -76,12 +76,6 @@ const DashboardComponent = () => {
               <div className="dashboard-menu-box">
                 <h1> Finance Loan  <br/><br/>{approvedRejectedFinance?.length}</h1>
               </div>
-              <div className="dashboard-menu-box">
-                <h1> Total Car Insurance <br/><br/>10</h1>
-              </div>
-              <div className="dashboard-menu-box">
-                <h1> Total Cars <br/><br/>10</h1>
-              </div>
             </div>
           </div>
         </div>
