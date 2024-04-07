@@ -34,10 +34,10 @@ const AppComponent = () => {
   );
 };
 const appRouter = createBrowserRouter([
-  {
-    path: "/",
-    element: <AppComponent />,
-    children: [
+  // {
+    // path: "/",
+    // element: <AppComponent />,
+    // children: [
       {
         path: "/",
         element: <DashboardComponent />,
@@ -46,45 +46,45 @@ const appRouter = createBrowserRouter([
         path: "/approved-user",
         element: <ApprovedUserComponent />,
       },
-      {
-        path: "/user",
-        element: <UserComponent />,
-      },
-      {
-        path: "/contact-us",
-        element: <ContactUsComponent />,
-      },
-      {
-        path: "/add-brand",
-        element: <AddBrandComponent />,
-      },
-      {
-        path:"/block-user",
-        element:<BlockUserComponent/>
-      },
-      {
-        path:"/finance-loan-approve-reject",
-        element:<FinancialLoanApprovedRejectListing/>
-      },
-      {
-         path:"/insurance-loan-approve-reject",
-         element:<InsuranceLoanApproveRejectList/>
-      },
-      {
-        path: "/add-car",
-        element: <AddCarComponent />,
-      },
-      {
-        path: "/finance-loan",
-        element: <FinancialLoanListing />,
-      },
-      {
-        path: "/claim-lodge",
-        element: <ClaimLodgeListing />,
-      },
-      { path: "/insurance-loan", element: <CarLoanListingComponent /> },
-    ],
-  },
+      // {
+      //   path: "/user",
+      //   element: <UserComponent />,
+      // },
+      // {
+      //   path: "/contact-us",
+      //   element: <ContactUsComponent />,
+      // },
+      // {
+      //   path: "/add-brand",
+      //   element: <AddBrandComponent />,
+      // },
+      // {
+      //   path:"/block-user",
+      //   element:<BlockUserComponent/>
+      // },
+      // {
+      //   path:"/finance-loan-approve-reject",
+      //   element:<FinancialLoanApprovedRejectListing/>
+      // },
+      // {
+      //    path:"/insurance-loan-approve-reject",
+      //    element:<InsuranceLoanApproveRejectList/>
+      // },
+      // {
+      //   path: "/add-car",
+      //   element: <AddCarComponent />,
+      // },
+      // {
+      //   path: "/finance-loan",
+      //   element: <FinancialLoanListing />,
+      // },
+      // {
+      //   path: "/claim-lodge",
+      //   element: <ClaimLodgeListing />,
+      // },
+      // { path: "/insurance-loan", element: <CarLoanListingComponent /> },
+  //   ],
+  // },
 ]);
 
 const root = ReactDom.createRoot(document.getElementById("root"));
