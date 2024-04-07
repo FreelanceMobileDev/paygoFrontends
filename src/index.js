@@ -6,7 +6,7 @@ import reportWebVitals from "./reportWebVitals";
 import PrivacyPolicy from "./Components/PrivacyPolicyOther";
 import "bootstrap/dist/css/bootstrap.min.css";
 import {
-  HashRouter as Router,
+  BrowserRouter as Router,
   Routes,
   Route,
   Navigate,
