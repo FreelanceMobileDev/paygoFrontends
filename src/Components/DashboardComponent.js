@@ -21,6 +21,7 @@ const DashboardComponent = () => {
         const insuranceLoanRequest = await axios.get(
           "http://13.127.84.202:3213/api/insurance/get-insurance"
         );
+        
         const userRequests = await axios.get(
           "http://13.127.84.202:3213/api/user/get-user-list"
         );
