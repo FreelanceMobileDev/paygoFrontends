@@ -22,7 +22,7 @@ const DashboardComponent = () => {
           "http://13.127.84.202:3213/api/insurance/get-insurance"
         );
         const userRequests = await axios.get(
-          "http://13.127.84.202:3213/api/user/list-user-details"
+          "http://13.127.84.202:3213/api/user/get-user-list"
         );
         const approvedRejectedinsurance = await axios.get(
           "http://13.127.84.202:3213/api/insurance/get-approved-reject-insurance"
