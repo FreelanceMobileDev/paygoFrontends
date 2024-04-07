@@ -26,66 +26,29 @@ import ClaimLodgeListing from "./Components/ClaimLodgeListingComponent";
 import FinancialLoanApprovedRejectListing from "./Components/FinancialLoanApproveRejectComponent";
 import InsuranceLoanApproveRejectList from "./Components/insuranceLoanApproveRejectListing.js";
 import BlockUserComponent from "./Components/BlockUserComponent.js";
-const AppComponent = () => {
-  return (
-    <>
-      <Outlet />
-    </>
-  );
-};
-const appRouter = createBrowserRouter([
-  // {
-    // path: "/",
-    // element: <AppComponent />,
-    // children: [
-      {
-        path: "/",
-        element: <DashboardComponent />,
-      },
-      {
-        path: "/approved-user",
-        element: <ApprovedUserComponent />,
-      },
-      // {
-      //   path: "/user",
-      //   element: <UserComponent />,
-      // },
-      // {
-      //   path: "/contact-us",
-      //   element: <ContactUsComponent />,
-      // },
-      // {
-      //   path: "/add-brand",
-      //   element: <AddBrandComponent />,
-      // },
-      // {
-      //   path:"/block-user",
-      //   element:<BlockUserComponent/>
-      // },
-      // {
-      //   path:"/finance-loan-approve-reject",
-      //   element:<FinancialLoanApprovedRejectListing/>
-      // },
-      // {
-      //    path:"/insurance-loan-approve-reject",
-      //    element:<InsuranceLoanApproveRejectList/>
-      // },
-      // {
-      //   path: "/add-car",
-      //   element: <AddCarComponent />,
-      // },
-      // {
-      //   path: "/finance-loan",
-      //   element: <FinancialLoanListing />,
-      // },
-      // {
-      //   path: "/claim-lodge",
-      //   element: <ClaimLodgeListing />,
-      // },
-      // { path: "/insurance-loan", element: <CarLoanListingComponent /> },
-  //   ],
-  // },
-]);
-
-const root = ReactDom.createRoot(document.getElementById("root"));
-root.render(<RouterProvider router={appRouter} />);
+const App = () => (
+  <Router>
+    <Routes>
+      <Route path="/" element={<DashboardComponent />} />
+      <Route path="/privacy" element={<PrivacyPolicy />} />
+      <Route path="/approved-user" element={<ApprovedUserComponent />} />
+      <Route path="/dashboard" element={<DashboardComponent />} />
+      <Route path="/user" element={<UserComponent />} />
+      <Route path="/contact-us" element={<ContactUsComponent />} />
+      <Route path="/add-brand" element={<AddBrandComponent />} />
+      <Route path="/add-car" element={<AddCarComponent />} />
+      <Route path="/insurance-loan" element={<CarLoanListingComponent />} />
+      <Route path="/finance-loan" element={<FinancialLoanListing />} />
+      <Route path="/claim-lodge" element={<ClaimLodgeListing />} />
+      <Route path="/insurance-loan-approve-reject" element={<InsuranceLoanApproveRejectList />} />
+      <Route path="/finance-loan-approve-reject" element={<FinancialLoanApprovedRejectListing />} />
+      <Route path="/block-user" element={<BlockUserComponent />} />
+      <Route path="*" element={<Navigate to="/" />} />
+    </Routes>
+  </Router>
+);
+ReactDom.createRoot(document.getElementById("root")).render(
+  <React.StrictMode>
+    <App/>
+  </React.StrictMode>
+);
