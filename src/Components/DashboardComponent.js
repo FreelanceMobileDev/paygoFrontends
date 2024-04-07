@@ -21,7 +21,6 @@ const DashboardComponent = () => {
         const insuranceLoanRequest = await axios.get(
           "http://13.127.84.202:3213/api/insurance/get-insurance"
         );
-        
         const userRequests = await axios.get(
           "http://13.127.84.202:3213/api/user/get-user-list"
         );
@@ -57,7 +56,7 @@ const DashboardComponent = () => {
           <div class="dashboard-menu-container">
             <div className="dashboard-menu">
               <div className="dashboard-menu-box">
-                <h1> User Approval Request <br/><br/>{userRequest?.getUserCount}</h1>
+                <h1> User Approval Request <br/><br/>{userRequest?.length}</h1>
               </div>
               <div className="dashboard-menu-box">
                 <h1> Active Users <br/><br/>{approvedUser?.length}</h1>
