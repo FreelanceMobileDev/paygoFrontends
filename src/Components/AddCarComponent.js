@@ -53,6 +53,7 @@ const AddCarComponent = () => {
       setShowModalData([...showModalData,response?.data?.data])
       setSubmitting(false);
       handleCloseModal();
+      window.location.reload()
       const updatedBrandsResponse = await axios.get(
         "http://13.127.84.202:3213/api/car/get-brand-name"
       );

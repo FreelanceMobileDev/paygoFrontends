@@ -43,7 +43,7 @@ const AddBrandComponent = () => {
         setIBrands([...brands, response.data.data]); 
         setSubmitting(false);
         handleCloseModal();
-          
+        window.location.reload()
     } catch (error) {
         console.error("Error adding brand:", error);
     }

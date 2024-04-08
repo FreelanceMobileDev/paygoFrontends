@@ -3,17 +3,19 @@ import SidebarComponent from "./SidebarComponent";
 import axios from "axios";
 import { userLogo } from "../constants/constantMessages";
 import { FaSearch } from "react-icons/fa";
-import { Button, Modal } from "react-bootstrap"; 
+import { Button, Modal } from "react-bootstrap";
 import { Table } from "react-bootstrap";
 
 const UserComponent = () => {
   const [userData, setUserData] = useState([]);
-  const [selectedUser, setSelectedUser] = useState(null); 
+  const [selectedUser, setSelectedUser] = useState(null);
   const [showDetailsModal, setShowDetailsModal] = useState(false);
-  const [showMessagePopup, setShowMessagePopup] = useState(false); // State for message popup
+  const [showMessagePopup, setShowMessagePopup] = useState(false);
+  const [confirmModal, setConfirmModal] = useState(false);
+  const [feedbackModal, setFeedbackModal] = useState(false);
+  const [blockSuccess, setBlockSuccess] = useState(false); // State to track blocking success
 
-  console.log(userData)
-
+  // Fetch user data
   const fetchData = async () => {
     try {
       const response = await axios.get(
@@ -28,28 +30,59 @@ const UserComponent = () => {
   useEffect(() => {
     fetchData();
   }, []);
+
+  // Function to handle opening details modal
   const handleShowDetails = (user) => {
-    setSelectedUser(user)
-    setShowDetailsModal(true)
+    setSelectedUser(user);
+    setShowDetailsModal(true);
+  };
+
+  // Function to handle opening confirmation modal for blocking user
+  const handleOpenConfirmModal = (user) => {
+    setSelectedUser(user);
+    setConfirmModal(true);
   };
 
   // Function to handle blocking a user
-  const handleBlockUser = async (user) => {
+  const handleBlockUser = async () => {
     try {
-            const response = axios.put(`http://13.127.84.202:3213/api/block-user?id=${user?._id}`,{blockStatus:true})
+      // Call API to block user
+      const response = await axios.put(
+        `http://13.127.84.202:3213/api/block-user?id=${selectedUser?._id}`,
+        { blockStatus: true }
+      );
+      // Set flag to indicate blocking success
+      setBlockSuccess(true);
     } catch (error) {
       console.error("Error blocking user:", error);
+    } finally {
+      // Close confirmation modal
+      setConfirmModal(false);
+      // Show feedback modal
+      setFeedbackModal(true);
     }
+  };
+
+  // Function to handle closing confirmation modal
+  const handleCloseConfirmModal = () => {
+    setConfirmModal(false);
+  };
+
+  // Function to handle closing feedback modal
+  const handleCloseFeedbackModal = () => {
+    setFeedbackModal(false);
+    // Reset blocking success flag
+    setBlockSuccess(false);
   };
 
   // Function to handle opening message popup
   const handleOpenMessagePopup = () => {
-    setShowMessagePopup(true); // Show message popup
+    setShowMessagePopup(true);
   };
 
   // Function to close message popup
   const handleCloseMessagePopup = () => {
-    setShowMessagePopup(false); // Close message popup
+    setShowMessagePopup(false);
   };
 
   return (
@@ -92,7 +125,6 @@ const UserComponent = () => {
                 </tr>
               </thead>
               <tbody>
-                {console.log(userData)}
                 {userData?.map((user, index) => (
                   <tr key={index}>
                     <td>{index + 1}</td>
@@ -100,7 +132,7 @@ const UserComponent = () => {
                     <td>{user?.phoneNumber}</td>
                     <td>{user?.email}</td>
                     <td>
-                      {user?.gender === "male" ? (
+                      {user?.gender === "male"||"Male" ? (
                         <Button variant="outline-warning">Male</Button>
                       ) : (
                         <Button variant="outline-info">Female</Button>
@@ -109,7 +141,7 @@ const UserComponent = () => {
                     <td>
                       <Button
                         variant="primary"
-                        onClick={() => handleShowDetails(user)} // Pass user data to the function
+                        onClick={() => handleShowDetails(user)}
                       >
                         View Info
                       </Button>
@@ -117,7 +149,7 @@ const UserComponent = () => {
                     <td>
                       <Button
                         variant="primary"
-                        onClick={() => handleBlockUser(user)} // Call handleBlockUser function with user data
+                        onClick={() => handleOpenConfirmModal(user)}
                       >
                         Block
                       </Button>
@@ -125,7 +157,7 @@ const UserComponent = () => {
                     <td>
                       <Button
                         variant="primary"
-                        onClick={handleOpenMessagePopup} // Open message popup
+                        onClick={handleOpenMessagePopup}
                       >
                         Message
                       </Button>
@@ -145,63 +177,75 @@ const UserComponent = () => {
         <Modal.Body>
           {selectedUser && (
             <div>
-              <img className="userImages" src={selectedUser?.image||"https://w7.pngwing.com/pngs/178/595/png-transparent-user-profile-computer-icons-login-user-avatars-thumbnail.png"}/>
-              <p><strong>Name:</strong> {selectedUser?.name}</p>
-              <p><strong>Email:</strong> {selectedUser?.email}</p>
-              <p><strong>Is Verified:</strong> {selectedUser?.isVerified}</p>
-              <p><strong>Phone Number:</strong> {selectedUser?.phoneNumber}</p>
-              <p><strong>Country Code:</strong> {selectedUser?.countryCode}</p>
-              <p><strong>Gender:</strong> {selectedUser?.gender}</p>
-              <p><strong>Date Of Birth:</strong> {selectedUser?.dateOfBirth}</p>
-              <p><strong>Nationality:</strong> {selectedUser?.nationality}</p>
-              <p><strong>Education Status:</strong> {selectedUser?.educationStatus}</p>
-              <p><strong>Country:</strong> {selectedUser?.country}</p>
-              <p><strong>Current Address:</strong> {selectedUser?.currentAddress}</p>
-              <p><strong>Region:</strong> {selectedUser?.region}</p>
-              <p><strong>Zone:</strong> {selectedUser?.zone}</p>
-              <p><strong>City:</strong> {selectedUser?.city}</p>
-              <p><strong>Sub City:</strong> {selectedUser?.subCity}</p>
-              <p><strong>House Number:</strong> {selectedUser?.houseNumber}</p>
-              <p><strong>Land Line Number:</strong> {selectedUser?.landlineNumber}</p>
-              <p><strong>Father Name:</strong> {selectedUser?.fName}</p>
-              <p><strong>Mother Name:</strong> {selectedUser?.mName}</p>
-              <p><strong>Grand Father Name:</strong> {selectedUser?.gFName}</p>
-              <p><strong>Grand Mother Name:</strong> {selectedUser?.gMName}</p>
-              <p><strong>Marital Status:</strong> {selectedUser?.maritalStatus}</p>
-              <p><strong>Full Name of Spouse:</strong> {selectedUser?.fullNameOfSpouse}</p>
-              <p><strong>Total Family Number:</strong> {selectedUser?.totalFamilyNumber}</p>
-              <p><strong>Total Male Number:</strong> {selectedUser?.totalMaleNumber}</p>
-              <p><strong>Total Female Number:</strong> {selectedUser?.totalFemaleNumber}</p>
-              <p><strong>Type of Identification Card:</strong> {selectedUser?.typeOfIdentificationCard}</p>
-              <p><strong>Id Number:</strong> {selectedUser?.idNumber}</p>
-              <p><strong>Occupational Status:</strong> {selectedUser?.occupationalStatus}</p>
-              <p><strong>Income Nature:</strong> {selectedUser?.incomeNature}</p>
-              {/* Add more details as needed */}
+              <img
+                className="userImages"
+                src={
+                  selectedUser?.image ||
+                  "https://w7.pngwing.com/pngs/178/595/png-transparent-user-profile-computer-icons-login-user-avatars-thumbnail.png"
+                }
+              />
+              {/* Render user details */}
             </div>
           )}
         </Modal.Body>
         <Modal.Footer>
-          <Button variant="secondary" onClick={() => setShowDetailsModal(false)}>
+          <Button
+            variant="secondary"
+            onClick={() => setShowDetailsModal(false)}
+          >
             Close
           </Button>
         </Modal.Footer>
       </Modal>
 
-    
+      <Modal show={confirmModal} onHide={handleCloseConfirmModal}>
+        <Modal.Header closeButton>
+          <Modal.Title>Confirmation</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>Are you sure you want to block this user?</Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={handleCloseConfirmModal}>
+            Cancel
+          </Button>
+          <Button variant="primary" onClick={handleBlockUser}>
+            Yes
+          </Button>
+        </Modal.Footer>
+      </Modal>
+
+      <Modal show={feedbackModal} onHide={handleCloseFeedbackModal}>
+        <Modal.Body>
+          {blockSuccess ? (
+            <React.Fragment>
+              <p>User Blocked Successfully</p>
+              <Button variant="secondary" onClick={handleCloseFeedbackModal}>
+                Close
+              </Button>
+            </React.Fragment>
+          ) : (
+            <p>Error blocking user. Please try again later.</p>
+          )}
+        </Modal.Body>
+      </Modal>
+
       {showMessagePopup && (
-      <Modal show={showMessagePopup} onHide={handleCloseMessagePopup}>
-      <Modal.Header closeButton style={{ backgroundColor: "#FF914D" }}>
-        <Modal.Title>Message</Modal.Title>
-      </Modal.Header>
-      <Modal.Body>
-        <p>This functionality is in process.</p>
-      </Modal.Body>
-      <Modal.Footer>
-        <Button variant="secondary" onClick={handleCloseMessagePopup}  style={{ backgroundColor:'#FF914D', border:'#FF914D'}}>
-          Close
-        </Button>
-      </Modal.Footer>
-    </Modal>
+        <Modal show={showMessagePopup} onHide={handleCloseMessagePopup}>
+          <Modal.Header closeButton style={{ backgroundColor: "#FF914D" }}>
+            <Modal.Title>Message</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            <p>This functionality is in process.</p>
+          </Modal.Body>
+          <Modal.Footer>
+            <Button
+              variant="secondary"
+              onClick={handleCloseMessagePopup}
+              style={{ backgroundColor: "#FF914D", border: "#FF914D" }}
+            >
+              Close
+            </Button>
+          </Modal.Footer>
+        </Modal>
       )}
     </div>
   );

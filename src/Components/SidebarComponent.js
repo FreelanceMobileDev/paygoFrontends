@@ -46,25 +46,25 @@ const SidebarComponent = () => {
               <span>Block Users</span>
             </Link>
           </li>
+          <li className={isMenuItemActive("/insurance-loan-approve-reject")}>
+            <Link to="/insurance-loan-approve-reject">
+              <span>Insurance Loan</span>
+            </Link>
+          </li>
           <li className={isMenuItemActive("/insurance-loan")}>
             <Link to="/insurance-loan">
               {" "}
               <span> Insurance Request</span>
             </Link>
           </li>
-          <li className={isMenuItemActive("/insurance-loan-approve-reject")}>
-            <Link to="/insurance-loan-approve-reject">
-              <span>Insurance Loan</span>
+          <li className={isMenuItemActive("/finance-loan-approve-reject")}>
+            <Link to="/finance-loan-approve-reject">
+              <span> Financial Loan</span>
             </Link>
           </li>
           <li className={isMenuItemActive("/finance-loan")}>
             <Link to="/finance-loan">
               <span> Financial Request</span>
-            </Link>
-          </li>
-          <li className={isMenuItemActive("/finance-loan-approve-reject")}>
-            <Link to="/finance-loan-approve-reject">
-              <span> Financial Loan</span>
             </Link>
           </li>
           <li className={isMenuItemActive("/contact-us")}>

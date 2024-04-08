@@ -17,6 +17,7 @@ const FinancialLoanListing = () => {
         setFinancialLoan(response?.data?.data || []);
       } catch (error) {
         console.error("Error fetching insurance data:", error);
+        // Optionally, set state to indicate error to the user
       }
     };
     fetchData();
@@ -33,7 +34,7 @@ const FinancialLoanListing = () => {
 
   const handleUpdateStatus = async (user, status) => {
     try {
-      const response = await axios.put(
+      await axios.put(
         `http://13.127.84.202:3213/api/insurance/update-financial-status?id=${user._id}`,
         { status }
       );
@@ -43,6 +44,7 @@ const FinancialLoanListing = () => {
       setFinancialLoan(updatedFinancialLoan);
     } catch (error) {
       console.error("Error updating financial status:", error);
+      // Optionally, set state to indicate error to the user
     }
   };
 
@@ -71,37 +73,43 @@ const FinancialLoanListing = () => {
                 </tr>
               </thead>
               <tbody>
-                {financialLoan.map((user, index) => (
-                  <tr key={index}>
-                    <td>{index + 1}</td>
-                    <td>{user?.userId?.name}</td>
-                    <td>{user?.loanType}</td>
-                    <td>{user?.loanAmount}</td>
-                    <td>
-                      <Button
-                        variant="success"
-                        className="mr-2"
-                        onClick={() => handleUpdateStatus(user, "approved")}
-                      >
-                        Approved
-                      </Button>&nbsp;
-                      <Button
-                        variant="danger"
-                        onClick={() => handleUpdateStatus(user, "rejected")}
-                      >
-                        Reject
-                      </Button>
-                    </td>
-                    <td>
-                      <Button
-                        variant="secondary"
-                        onClick={() => handleShowUserInfo(user)}
-                      >
-                        Loan Info
-                      </Button>
-                    </td>
+                {financialLoan.length === 0 ? (
+                  <tr>
+                    <td colSpan="6">No Request is available Right now</td>
                   </tr>
-                ))}
+                ) : (
+                  financialLoan.map((user, index) => (
+                    <tr key={index}>
+                      <td>{index + 1}</td>
+                      <td>{user?.userId?.name}</td>
+                      <td>{user?.loanType}</td>
+                      <td>{user?.loanAmount}</td>
+                      <td>
+                        <Button
+                          variant="success"
+                          className="mr-2"
+                          onClick={() => handleUpdateStatus(user, "approved")}
+                        >
+                          Approved
+                        </Button>
+                        <Button
+                          variant="danger"
+                          onClick={() => handleUpdateStatus(user, "rejected")}
+                        >
+                          Reject
+                        </Button>
+                      </td>
+                      <td>
+                        <Button
+                          variant="secondary"
+                          onClick={() => handleShowUserInfo(user)}
+                        >
+                          Loan Info
+                        </Button>
+                      </td>
+                    </tr>
+                  ))
+                )}
               </tbody>
             </Table>
           </div>
@@ -112,16 +120,15 @@ const FinancialLoanListing = () => {
           <Modal.Title>Finance Loan Details</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-        
           {selectedUser && (
             <>
               <div className="drivingLicence">
-            <img
-              className="drivingLicenceImage"
-              src={selectedUser?.tinRegistrationImage}
-              alt="Facial Picture"
-            />
-          </div>
+                <img
+                  className="drivingLicenceImage"
+                  src={selectedUser?.tinRegistrationImage}
+                  alt="Facial Picture"
+                />
+              </div>
               <p><strong>Loan Terms:</strong>{selectedUser?.loanTerms}</p>
               <p><strong>Loan Amount:</strong>{selectedUser?.loanAmount}</p>
               <p><strong>Reason For Loan:</strong>{selectedUser?.reasonForLoan}</p>

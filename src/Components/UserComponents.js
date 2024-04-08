@@ -61,11 +61,11 @@ const UserComponent = () => {
 
   return (
     <div>
-      <div className="header-container">
+     <div className="header-container">
         <SidebarComponent />
         <div className="user-container">
           <div className="search-container">
-            <h1>User Request</h1>
+            <h1> User</h1>
             <div className="user-search-container">
               <input
                 type="text"
@@ -76,14 +76,6 @@ const UserComponent = () => {
               <Button variant="primary">
                 <FaSearch />
               </Button>
-            </div>
-          </div>
-          <div className="user-container-logo">
-            <div className="user-logo">
-              <img src={userLogo} alt="User Logo" />
-            </div>
-            <div className="user-text">
-              <b>{userRequest}</b> Total User Request
             </div>
           </div>
           <div className="user-table-data">

@@ -28,7 +28,7 @@ code {
   left: 0;
   bottom: 0;
   width: 100%;
-  height: 110vh;
+  height: 100%;
   overflow: hidden;
   transition: all;
   background-color: #FF914D;
@@ -101,15 +101,15 @@ margin-left: 20%;
 .sideBarComponent{
   display: flex;
   flex-direction: column;
-  width:30%
+  width:30%;
+  height: 100%;
 }
 .dashboard-menu-container {
   max-height: calc(100vh - 40px); 
   overflow-y: auto;
 }
 .logoSideBarComponent{
-  height: 22%;
-  width: 70%;
+  width: 62%;
   background-color: #FF914D;
 }
 .userImages{
@@ -120,9 +120,7 @@ margin-left: 20%;
 }
 .main{
   background-color: #FF914D;
-  
-  height:115vh;
-  width:70%;
+  width: 62%;
 }
 .main ul.menu li a{
   text-decoration: none;
@@ -138,11 +136,12 @@ margin-left: 20%;
 }
 .main ul.menu li {
   list-style-type: none;
-  margin-bottom: 5px; 
-  padding-left: 7px;
-  font-size: 30px;
-  font-weight:bold;
-  margin-bottom: -5px;
+  margin-bottom: 5px;
+  padding-left: 0px;
+  font-size:28.5px;
+  font-weight: bold;
+  margin-left: -40PX;
+  margin-bottom: -9%;
 }
 .header-container{
   display:flex;
@@ -165,12 +164,12 @@ margin-left: 20%;
 .dashboard-menu-box {
   display: flex;
   background-color: #FF914D;
-  height: 125px;
+  height: 96px;
   border-radius: 10px;
   margin: 5px;
   color: white;
   text-align: center;
-  width: 40%;
+  width: 16%;
   margin-right: 9%;
   margin-top: auto;
   padding-top: auto;
@@ -199,7 +198,7 @@ margin-left: 20%;
   font-weight: bold;
 }
 .user-search-container{
-  margin-left: 50%;
+  margin-left: 78%;
   margin-top: 1%;
   height: 7%;
   display: flex;
