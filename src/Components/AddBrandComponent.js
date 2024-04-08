@@ -6,12 +6,13 @@ import { Formik, Form as FormikForm, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import SidebarComponent from "./SidebarComponent";
 import {  Table, Modal, Form, Button} from "react-bootstrap";
-import { FaPen } from "react-icons/fa";
+import { FaPen, FaTrash } from "react-icons/fa";
 
 const AddBrandComponent = () => {
     const navigate = useNavigate();
-    const [brands, setIBrands] = useState([]);
+    const [brands, setBrands] = useState([]);
     const [showModal, setShowModal] = useState(false);
+    const [selectedBrand, setSelectedBrand] = useState(null);
 
     useEffect(() => {
         const fetchData = async () => {
@@ -19,38 +20,60 @@ const AddBrandComponent = () => {
             const response = await axios.get(
               "http://13.127.84.202:3213/api/car/get-brand-name"
             );
-            setIBrands(response?.data?.data || []);
+            setBrands(response?.data?.data || []);
           } catch (error) {
-            console.error("Error fetching insurance data:", error);
+            console.error("Error fetching brands:", error);
           }
         };
         fetchData();
       }, []);
-      const handleAddBrand = () => {
+
+    const handleAddBrand = () => {
         setShowModal(true);
     };
 
     const handleCloseModal = () => {
         setShowModal(false);
+        setSelectedBrand(null);
     };
 
     const handleSubmit = async (values, { setSubmitting }) => {
       try {
-        const response = await axios.post(
-            "http://13.127.84.202:3213/api/car/add-brand",
-            { name: values.brandName } 
-        );
-        setIBrands([...brands, response.data.data]); 
-        setSubmitting(false);
-        handleCloseModal();
-        window.location.reload()
-    } catch (error) {
-        console.error("Error adding brand:", error);
-    }
-      console.log("Form values:", values);
-        setSubmitting(false);
-        handleCloseModal();
+          if (selectedBrand) {
+              const response = await axios.put(
+                  `http://13.127.84.202:3213/api/car/edit-brand-name?id=${selectedBrand._id}`,
+                  { name: values.brandName }
+              );
+              const updatedBrand = response.data.data;
+              setBrands(brands.map(brand => (brand._id === updatedBrand._id ? updatedBrand : brand)));
+          } else {
+              const response = await axios.post(
+                  "http://13.127.84.202:3213/api/car/add-brand",
+                  { name: values.brandName } 
+              );
+              setBrands([...brands, response.data.data]); 
+          }
+          setSubmitting(false);
+          handleCloseModal();
+      } catch (error) {
+          console.error("Error adding/editing brand:", error);
+      }
+  };
+
+    const handleEditBrand = (brand) => {
+        setSelectedBrand(brand);
+        setShowModal(true);
     };
+
+    const handleDeleteBrand = async (brandId) => {
+        try {
+            await axios.delete(`http://13.127.84.202:3213/api/car/delete-brand?id=${brandId}`);
+            setBrands(brands.filter(brand => brand._id !== brandId));
+        } catch (error) {
+            console.error("Error deleting brand:", error);
+        }
+    };
+
   return (
     <div>
       <div className="header-container">
@@ -63,8 +86,7 @@ const AddBrandComponent = () => {
             <button className="addBrandButton" onClick={handleAddBrand}> Add Brand</button>
           </div>
           <div className="user-table-data">
-          <Table
-            >
+          <Table>
               <thead>
                 <tr>
                   <th style={{ textAlign: "center" }}>S.NO.</th>
@@ -77,21 +99,29 @@ const AddBrandComponent = () => {
                   <tr key={index}>
                     <td style={{ textAlign: "center" }}>{index + 1}</td>
                     <td style={{ textAlign: "center" }}>{brand?.name}</td>
-                    <td style={{ textAlign: "center" }}><FaPen /></td>
-                    </tr>
-                    ))}
+                    <td style={{ textAlign: "center" }}>
+                        <Button variant="primary" onClick={() => handleEditBrand(brand)}>
+                            <FaPen />
+                        </Button>
+                        &nbsp;
+                        <Button variant="danger" onClick={() => handleDeleteBrand(brand._id)}>
+                            <FaTrash />
+                        </Button>
+                    </td>
+                  </tr>
+              ))}
               </tbody>
-              </Table>
+          </Table>
           </div>
         </div>
       </div>
       <Modal show={showModal} onHide={handleCloseModal}>
                 <Modal.Header closeButton>
-                    <Modal.Title>Add New Brand</Modal.Title>
+                    <Modal.Title>{selectedBrand ? 'Edit Brand' : 'Add New Brand'}</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
                     <Formik
-                        initialValues={{ brandName: "" }}
+                        initialValues={{ brandName: selectedBrand ? selectedBrand.name : '' }}
                         validationSchema={Yup.object({
                             brandName: Yup.string().required("Brand name is required"),
                         })}
@@ -111,7 +141,7 @@ const AddBrandComponent = () => {
                             </Form.Group>
                             <br/>
                             <Button variant="primary" type="submit">
-                                Add Brand
+                                {selectedBrand ? 'Update Brand' : 'Add Brand'}
                             </Button>
                         </FormikForm>
                     </Formik>

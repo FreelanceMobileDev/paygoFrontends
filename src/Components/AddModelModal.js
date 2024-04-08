@@ -1,18 +1,22 @@
 // AddModelModal.js
+
 import React from "react";
 import { Modal, Form, Button } from "react-bootstrap";
 import { Formik, Form as FormikForm, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 
-const AddModelModal = ({ showModal, handleCloseModal, brands, handleSubmit }) => {
+const AddModelModal = ({ showModal, handleCloseModal, brands, handleSubmit, selectedModel }) => {
   return (
     <Modal show={showModal} onHide={handleCloseModal}>
       <Modal.Header closeButton>
-        <Modal.Title>Add New Model</Modal.Title>
+        <Modal.Title>{selectedModel ? "Edit Model" : "Add Model"}</Modal.Title>
       </Modal.Header>
       <Modal.Body>
         <Formik
-          initialValues={{ brandId: "", modelName: "" }}
+          initialValues={{
+            brandId: selectedModel ? selectedModel.brandId._id : "",
+            modelName: selectedModel ? selectedModel.name : "",
+          }}
           validationSchema={Yup.object({
             brandId: Yup.string().required("Brand is required"),
             modelName: Yup.string().required("Model name is required"),
@@ -22,7 +26,7 @@ const AddModelModal = ({ showModal, handleCloseModal, brands, handleSubmit }) =>
           <FormikForm>
             <Form.Group controlId="brandId">
               <Form.Label>Brand</Form.Label>
-              <Field as={Form.Control} component="select" name="brandId">
+              <Field as="select" name="brandId" className="form-control">
                 <option value="">Select Brand</option>
                 {brands.map((brand) => (
                   <option key={brand._id} value={brand._id}>
@@ -30,11 +34,7 @@ const AddModelModal = ({ showModal, handleCloseModal, brands, handleSubmit }) =>
                   </option>
                 ))}
               </Field>
-              <ErrorMessage
-                name="brandId"
-                component="div"
-                className="text-danger"
-              />
+              <ErrorMessage name="brandId" component="div" className="text-danger" />
             </Form.Group>
             <Form.Group controlId="modelName">
               <Form.Label>Model Name</Form.Label>
@@ -44,14 +44,11 @@ const AddModelModal = ({ showModal, handleCloseModal, brands, handleSubmit }) =>
                 name="modelName"
                 placeholder="Enter model name"
               />
-              <ErrorMessage
-                name="modelName"
-                component="div"
-                className="text-danger"
-              />
+              <ErrorMessage name="modelName" component="div" className="text-danger" />
             </Form.Group>
+            <br />
             <Button variant="primary" type="submit">
-              Add Model
+              {selectedModel ? "Update Model" : "Add Model"}
             </Button>
           </FormikForm>
         </Formik>
