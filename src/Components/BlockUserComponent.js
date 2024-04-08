@@ -46,6 +46,7 @@ const BlockUserComponent = () => {
 
   const handleCloseFeedbackModal = () => {
     setShowFeedbackModal(false);
+    window.location.reload();
   };
 
   const handleUnblockUser = async () => {
@@ -112,10 +113,16 @@ const BlockUserComponent = () => {
                     <td>{user?.phoneNumber}</td>
                     <td>{user?.email}</td>
                     <td>
-                      {user?.gender === "male" ? (
-                        <Button variant="outline-warning">Male</Button>
-                      ) : (
-                        <Button variant="outline-info">Female</Button>
+                      {user?.gender && (
+                        <Button
+                          variant={
+                            user.gender.toLowerCase() === "male"
+                              ? "outline-warning"
+                              : "outline-info"
+                          }
+                        >
+                          {user.gender}
+                        </Button>
                       )}
                     </td>
                     <td>
@@ -255,9 +262,8 @@ const BlockUserComponent = () => {
                 <strong>Income Nature:</strong> {selectedUser?.incomeNature}
               </p>
               <p>Facial Picture</p>
-         
+
               <p>Identification Card</p>
-             
             </div>
           )}
         </Modal.Body>

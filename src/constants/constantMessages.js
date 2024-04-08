@@ -1,2 +1,2 @@
-export const LOGO = "https://paygoc.s3.ap-south-1.amazonaws.com/b559e5f1-fa09-46a7-b596-48634e97f344_imgpsh_fullsize_anim.png"
+export const LOGO = "https://paygoc.s3.ap-south-1.amazonaws.com/b559e5f1-fa09-46a7-b596-48634e97f344_imgpsh_fullsize_anim+(1).png"
 export const userLogo = "https://codingzone.s3.ap-south-1.amazonaws.com/imgpsh_fullsize_anim+(2).png"

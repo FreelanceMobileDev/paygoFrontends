@@ -101,7 +101,7 @@ margin-left: 20%;
 .sideBarComponent{
   display: flex;
   flex-direction: column;
-  width:30%;
+  width:14%;
   height: 100%;
 }
 .dashboard-menu-container {
@@ -109,7 +109,7 @@ margin-left: 20%;
   overflow-y: auto;
 }
 .logoSideBarComponent{
-  width: 62%;
+  width: 100%;
   background-color: #FF914D;
 }
 .userImages{
@@ -120,7 +120,7 @@ margin-left: 20%;
 }
 .main{
   background-color: #FF914D;
-  width: 62%;
+  width: 100%;
 }
 .main ul.menu li a{
   text-decoration: none;
@@ -140,7 +140,7 @@ margin-left: 20%;
   padding-left: 0px;
   font-size:28.5px;
   font-weight: bold;
-  margin-left: -40PX;
+  margin-left: -25PX;
   margin-bottom: -9%;
 }
 .header-container{
@@ -169,7 +169,7 @@ margin-left: 20%;
   margin: 5px;
   color: white;
   text-align: center;
-  width: 16%;
+  width: 15%;
   margin-right: 9%;
   margin-top: auto;
   padding-top: auto;
@@ -189,8 +189,8 @@ margin-left: 20%;
 .user-container {
   display: flex;
   width: 100%;
-  margin-left: -5%;
-  margin-right: 5%;
+  margin-left: 0%;
+  margin-right: 0%;
   margin-top: 3%;
   height: 16vh;
 }

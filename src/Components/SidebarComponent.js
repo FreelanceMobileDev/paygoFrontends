@@ -43,7 +43,7 @@ const SidebarComponent = () => {
               to="/block-user"
               onClick={() => handleMenuItemClick("/block-user")}
             >
-              <span>Block Users</span>
+              <span>Blocked Users</span>
             </Link>
           </li>
           <li className={isMenuItemActive("/insurance-loan-approve-reject")}>

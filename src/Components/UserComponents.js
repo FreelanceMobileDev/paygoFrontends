@@ -103,10 +103,16 @@ const UserComponent = () => {
                     <td>{user?.name}</td>
                     <td>{user?.phoneNumber}</td>
                     <td>
-                      {user?.gender === "male" ? (
-                        <Button variant="outline-warning">Male</Button>
-                      ) : (
-                        <Button variant="outline-info">Female</Button>
+                      {user?.gender && (
+                        <Button
+                          variant={
+                            user.gender.toLowerCase() === "male"
+                              ? "outline-warning"
+                              : "outline-info"
+                          }
+                        >
+                          {user.gender}
+                        </Button>
                       )}
                     </td>
                     <td>
