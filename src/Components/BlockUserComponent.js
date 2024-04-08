@@ -255,15 +255,9 @@ const BlockUserComponent = () => {
                 <strong>Income Nature:</strong> {selectedUser?.incomeNature}
               </p>
               <p>Facial Picture</p>
-              {selectedUser?.facialPicture.split(",").map((imageUrl, index) => (
-                <img key={index} className="userImages" src={imageUrl} />
-              ))}
+         
               <p>Identification Card</p>
-              {selectedUser?.identificationCard
-                .split(",")
-                .map((imageUrl, index) => (
-                  <img key={index} className="userImages" src={imageUrl} />
-                ))}
+             
             </div>
           )}
         </Modal.Body>
