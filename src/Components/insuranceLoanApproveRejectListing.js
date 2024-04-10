@@ -7,21 +7,24 @@ const InsuranceLoanApproveRejectList = () => {
   const [insuranceLoan, setInsuranceLoan] = useState([]);
   const [selectedUser, setSelectedUser] = useState(null);
   const [showModal, setShowModal] = useState(false);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [hasMorePages, setHasMorePages] = useState(true);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          "http://13.127.84.202:3213/api/insurance/get-approved-reject-insurance"
+          `http://13.127.84.202:3213/api/insurance/get-approved-reject-insurance?page=${currentPage}&limit=10`
         );
         console.log(response);
         setInsuranceLoan(response?.data?.data || []);
+        setHasMorePages(response?.data?.data?.length == "10");
       } catch (error) {
         console.error("Error fetching insurance data:", error);
       }
     };
     fetchData();
-  }, []);
+  }, [currentPage]);
 
   const handleShowUserInfo = (user) => {
     setSelectedUser(user);
@@ -30,6 +33,13 @@ const InsuranceLoanApproveRejectList = () => {
 
   const handleCloseModal = () => {
     setShowModal(false);
+  };
+  const nextPage = () => {
+    setCurrentPage(currentPage + 1);
+  };
+
+  const prevPage = () => {
+    setCurrentPage(currentPage - 1);
   };
   return (
     <div>
@@ -51,6 +61,7 @@ const InsuranceLoanApproveRejectList = () => {
                   <th>Name</th>
                   <th>Mobile Number</th>
                   <th>Loan Term</th>
+                  <th>Average Income</th>
                   <th>Vehicle Value</th>
                   <th>Status</th>
                   <th>Action</th>
@@ -63,6 +74,7 @@ const InsuranceLoanApproveRejectList = () => {
                     <td>{user?.userId?.name}</td>
                     <td>{user?.userId?.phoneNumber}</td>
                     <td>{user?.loanTerm}</td>
+                    <td>{user?.averageIncome}</td>
                     <td>{user?.vehicleValue}</td>
                     <td>
                       <Button
@@ -100,6 +112,18 @@ const InsuranceLoanApproveRejectList = () => {
                 ))}
               </tbody>
             </Table>
+          </div>
+          <div
+            className="pagination-controls"
+            style={{ textAlign: "right", marginRight: "20px" }}
+          >
+            <Button onClick={prevPage} disabled={currentPage === 1}>
+              Previous
+            </Button>
+            &nbsp;
+            <Button onClick={nextPage} disabled={!hasMorePages}>
+              Next
+            </Button>
           </div>
         </div>
       </div>
@@ -156,6 +180,9 @@ const InsuranceLoanApproveRejectList = () => {
           </p>
           <p>
             <strong>Loan Term:</strong> {selectedUser?.loanTerm}
+          </p>
+          <p>
+            <strong>Average Income:</strong> {selectedUser?.averageIncome}
           </p>
           <p>
             <strong>Vehicle Brand:</strong> {selectedUser?.vehicleBrand}

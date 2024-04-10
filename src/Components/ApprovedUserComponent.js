@@ -13,15 +13,17 @@ const UserComponent = () => {
   const [showMessagePopup, setShowMessagePopup] = useState(false);
   const [confirmModal, setConfirmModal] = useState(false);
   const [feedbackModal, setFeedbackModal] = useState(false);
-  const [blockSuccess, setBlockSuccess] = useState(false); // State to track blocking success
-
-  // Fetch user data
+  const [blockSuccess, setBlockSuccess] = useState(false);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [hasMorePages, setHasMorePages] = useState(true);
+  
   const fetchData = async () => {
     try {
       const response = await axios.get(
-        "http://13.127.84.202:3213/api/user/get-approved-user"
+        `http://13.127.84.202:3213/api/user/get-approved-user?page=${currentPage}&limit=10`
       );
       setUserData(response?.data?.data);
+      setHasMorePages(response?.data?.data?.length === 10);
     } catch (error) {
       console.error("Error fetching user data:", error);
     }
@@ -29,7 +31,7 @@ const UserComponent = () => {
 
   useEffect(() => {
     fetchData();
-  }, []);
+  }, [currentPage]); // Fetch data whenever currentPage changes
 
   const handleShowDetails = (user) => {
     setSelectedUser(user);
@@ -39,6 +41,18 @@ const UserComponent = () => {
   const handleOpenConfirmModal = (user) => {
     setSelectedUser(user);
     setConfirmModal(true);
+  };
+
+  const nextPage = () => {
+    if (hasMorePages) {
+      setCurrentPage(currentPage + 1);
+    }
+  };
+
+  const prevPage = () => {
+    if (currentPage > 1) {
+      setCurrentPage(currentPage - 1);
+    }
   };
 
   const handleBlockUser = async () => {
@@ -65,9 +79,11 @@ const UserComponent = () => {
     setBlockSuccess(false);
     window.location.reload();
   };
+
   const handleOpenMessagePopup = () => {
     setShowMessagePopup(true);
   };
+
   const handleCloseMessagePopup = () => {
     setShowMessagePopup(false);
   };
@@ -159,6 +175,18 @@ const UserComponent = () => {
                 ))}
               </tbody>
             </Table>
+          </div>
+          <div
+            className="pagination-controls"
+            style={{ textAlign: "right", marginRight: "20px" }}
+          >
+            <Button onClick={prevPage} disabled={currentPage === 1}>
+              Previous
+            </Button>
+            &nbsp;
+            <Button onClick={nextPage} disabled={!hasMorePages}>
+              Next
+            </Button>
           </div>
         </div>
       </div>

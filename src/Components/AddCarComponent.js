@@ -10,25 +10,27 @@ const AddCarComponent = () => {
   const [showModal, setShowModal] = useState(false);
   const [showModalData, setShowModalData] = useState([]);
   const [selectedModel, setSelectedModel] = useState(null);
-
+  const [currentPage, setCurrentPage] = useState(1);
+  const [hasMorePages, setHasMorePages] = useState(true);
   useEffect(() => {
     const fetchData = async () => {
       try {
         const brandResponse = await axios.get(
-          "http://13.127.84.202:3213/api/car/get-brand-name"
+          `http://13.127.84.202:3213/api/car/get-brand-name`
         );
         setBrands(brandResponse?.data?.data || []);
 
         const carResponse = await axios.get(
-          "http://13.127.84.202:3213/api/car/get-car-name"
+          `http://13.127.84.202:3213/api/car/get-car-name?page=${currentPage}&limit=10`
         );
         setShowModalData(carResponse?.data?.data || []);
+        setHasMorePages(carResponse?.data?.data?.length == "10");
       } catch (error) {
         console.error("Error fetching car data:", error);
       }
     };
     fetchData();
-  }, []);
+  }, [currentPage]);
 
   const handleAddModel = () => {
     setSelectedModel(null);
@@ -39,7 +41,17 @@ const AddCarComponent = () => {
     setSelectedModel(model);
     setShowModal(true);
   };
+  const nextPage = () => {
+    if (hasMorePages) {
+      setCurrentPage(currentPage + 1);
+    }
+  };
 
+  const prevPage = () => {
+    if (currentPage > 1) {
+      setCurrentPage(currentPage - 1);
+    }
+  };
   const handleDeleteModel = async (modelId) => {
     try {
       const response = await axios.delete(
@@ -79,7 +91,6 @@ const AddCarComponent = () => {
           )
         );
       } else {
-        // Add new model
         response = await axios.post(
           "http://13.127.84.202:3213/api/car/add-model",
           {
@@ -151,6 +162,18 @@ const AddCarComponent = () => {
                   ))}
               </tbody>
             </Table>
+          </div>
+          <div
+            className="pagination-controls"
+            style={{ textAlign: "right", marginRight: "20px" }}
+          >
+            <Button onClick={prevPage} disabled={currentPage === 1}>
+              Previous
+            </Button>
+            &nbsp;
+            <Button onClick={nextPage} disabled={!hasMorePages}>
+              Next
+            </Button>
           </div>
         </div>
       </div>

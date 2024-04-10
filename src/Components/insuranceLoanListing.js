@@ -7,21 +7,23 @@ const CarLoanListingComponent = () => {
   const [insuranceLoan, setInsuranceLoan] = useState([]);
   const [selectedUser, setSelectedUser] = useState(null);
   const [showModal, setShowModal] = useState(false);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [hasMorePages, setHasMorePages] = useState(true);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          "http://13.127.84.202:3213/api/insurance/get-insurance"
+          `http://13.127.84.202:3213/api/insurance/get-insurance?page=${currentPage}&limit=10`
         );
-        console.log(response);
         setInsuranceLoan(response?.data?.data || []);
+        setHasMorePages(response?.data?.data?.length == "10");
       } catch (error) {
         console.error("Error fetching insurance data:", error);
       }
     };
     fetchData();
-  }, []);
+  },[currentPage]);
 
   const handleShowUserInfo = (user) => {
     setSelectedUser(user);
@@ -30,6 +32,12 @@ const CarLoanListingComponent = () => {
 
   const handleCloseModal = () => {
     setShowModal(false);
+  };
+  const nextPage = () => {
+    setCurrentPage(currentPage + 1);
+  };
+  const prevPage = () => {
+    setCurrentPage(currentPage - 1);
   };
   const handleUpdateStatus = async (user, status) => {
     try {
@@ -109,6 +117,18 @@ const CarLoanListingComponent = () => {
                 ))}
               </tbody>
             </Table>
+          </div>
+          <div
+            className="pagination-controls"
+            style={{ textAlign: "right", marginRight: "20px" }}
+          >
+            <Button onClick={prevPage} disabled={currentPage === 1}>
+              Previous
+            </Button>
+            &nbsp;
+            <Button onClick={nextPage} disabled={!hasMorePages}>
+              Next
+            </Button>
           </div>
         </div>
       </div>

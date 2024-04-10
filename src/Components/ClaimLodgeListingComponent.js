@@ -7,14 +7,17 @@ const ClaimLodgeListing = () => {
   const [claimData, setClaimData] = useState([]);
   const [selectedUser, setSelectedUser] = useState(null);
   const [showModal, setShowModal] = useState(false);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [hasMorePages, setHasMorePages] = useState(true);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          "http://13.127.84.202:3213/api/insurance/get-all-claim-data"
+          `http://13.127.84.202:3213/api/insurance/get-all-claim-data?page=${currentPage}&limit=10`
         );
         setClaimData(response?.data?.data || []);
+        setHasMorePages(response?.data?.data?.length == "10");
       } catch (error) {
         console.error("Error fetching insurance data:", error);
       }
@@ -30,7 +33,17 @@ const ClaimLodgeListing = () => {
   const handleCloseModal = () => {
     setShowModal(false);
   };
+  const nextPage = () => {
+    if (hasMorePages) {
+      setCurrentPage(currentPage + 1);
+    }
+  };
 
+  const prevPage = () => {
+    if (currentPage > 1) {
+      setCurrentPage(currentPage - 1);
+    }
+  };
   return (
     <div>
       <div className="header-container">
@@ -77,6 +90,18 @@ const ClaimLodgeListing = () => {
                 ))}
               </tbody>
             </Table>
+          </div>
+          <div
+            className="pagination-controls"
+            style={{ textAlign: "right", marginRight: "20px" }}
+          >
+            <Button onClick={prevPage} disabled={currentPage === 1}>
+              Previous
+            </Button>
+            &nbsp;
+            <Button onClick={nextPage} disabled={!hasMorePages}>
+              Next
+            </Button>
           </div>
         </div>
       </div>

@@ -11,13 +11,15 @@ const UserComponent = () => {
   const [userRequest, setUserRequest] = useState([]);
   const [selectedUser, setSelectedUser] = useState(null); 
   const [showDetailsModal, setShowDetailsModal] = useState(false);
-
+  const [currentPage, setCurrentPage] = useState(1);
+  const [hasMorePages, setHasMorePages] = useState(true);
 
   const fetchData = async () => {
     try {
       const response = await axios.get(
-        "http://13.127.84.202:3213/api/user/list-user-details"
+        `http://13.127.84.202:3213/api/user/list-user-details?page=${currentPage}&limit=10`
       );
+      setHasMorePages(response?.data?.data?.getAllUser?.length == "10");
       setUserRequest(response?.data?.data?.getUserCount);
       setUserData(response?.data?.data?.getAllUser);
     } catch (error) {
@@ -27,7 +29,7 @@ const UserComponent = () => {
 
   useEffect(() => {
     fetchData();
-  }, []);
+  }, [currentPage]);
 
   const handleApprove = async (user) => {
     try {
@@ -58,7 +60,12 @@ const UserComponent = () => {
       console.error("Error rejecting user:", error);
     }
   };
-
+  const nextPage = () => {
+    setCurrentPage(currentPage + 1);
+  };
+  const prevPage = () => {
+    setCurrentPage(currentPage - 1);
+  };
   return (
     <div>
      <div className="header-container">
@@ -153,6 +160,18 @@ const UserComponent = () => {
                 ))}
               </tbody>
             </Table>
+          </div>
+          <div
+            className="pagination-controls"
+            style={{ textAlign: "right", marginRight: "20px" }}
+          >
+            <Button onClick={prevPage} disabled={currentPage === 1}>
+              Previous
+            </Button>
+            &nbsp;
+            <Button onClick={nextPage} disabled={!hasMorePages}>
+              Next
+            </Button>
           </div>
         </div>
       </div>

@@ -7,21 +7,22 @@ const FinancialLoanListing = () => {
   const [financialLoan, setFinancialLoan] = useState([]);
   const [selectedUser, setSelectedUser] = useState(null);
   const [showModal, setShowModal] = useState(false);
-
+  const [currentPage, setCurrentPage] = useState(1);
+  const [hasMorePages, setHasMorePages] = useState(true);
   useEffect(() => {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          "http://13.127.84.202:3213/api/insurance/get-financial-list"
+          "http://13.127.84.202:3213/api/insurance/get-financial-list?page=${currentPage}&limit=10"
         );
         setFinancialLoan(response?.data?.data || []);
+        setHasMorePages(response?.data?.data?.length == "10");
       } catch (error) {
         console.error("Error fetching insurance data:", error);
-        // Optionally, set state to indicate error to the user
       }
     };
     fetchData();
-  }, []);
+  }, [currentPage]);
 
   const handleShowUserInfo = (user) => {
     setSelectedUser(user);
@@ -44,10 +45,14 @@ const FinancialLoanListing = () => {
       setFinancialLoan(updatedFinancialLoan);
     } catch (error) {
       console.error("Error updating financial status:", error);
-      // Optionally, set state to indicate error to the user
     }
   };
-
+  const nextPage = () => {
+    setCurrentPage(currentPage + 1);
+  };
+  const prevPage = () => {
+    setCurrentPage(currentPage - 1);
+  };
   return (
     <div>
       <div className="header-container">
@@ -113,6 +118,18 @@ const FinancialLoanListing = () => {
               </tbody>
             </Table>
           </div>
+          <div
+            className="pagination-controls"
+            style={{ textAlign: "right", marginRight: "20px" }}
+          >
+            <Button onClick={prevPage} disabled={currentPage === 1}>
+              Previous
+            </Button>
+            &nbsp;
+            <Button onClick={nextPage} disabled={!hasMorePages}>
+              Next
+            </Button>
+          </div>
         </div>
       </div>
       <Modal show={showModal} onHide={handleCloseModal}>
@@ -129,21 +146,57 @@ const FinancialLoanListing = () => {
                   alt="Facial Picture"
                 />
               </div>
-              <p><strong>Loan Terms:</strong>{selectedUser?.loanTerms}</p>
-              <p><strong>Loan Amount:</strong>{selectedUser?.loanAmount}</p>
-              <p><strong>Reason For Loan:</strong>{selectedUser?.reasonForLoan}</p>
-              <p><strong>Bank Account Number:</strong> {selectedUser?.accountNumber}</p>
-              <p><strong>Bank Name:</strong> {selectedUser?.bankName}</p>
-              <p><strong>Name:</strong> {selectedUser?.userId?.name}</p>
-              <p><strong>Upload Id:</strong> {selectedUser?.uploadid}</p>
-              <p><strong>Colletral:</strong> {selectedUser?.collateral}</p>
-              <p><strong>Collateral Value ApprovedBy:</strong> {selectedUser?.collateralValueApprovedBy}</p>
-              <p><strong>Reason For Loan:</strong> {selectedUser?.reasonForLoan}</p>
-              <p><strong>Tin Number:</strong> {selectedUser?.tinNumber}</p>
-              <p><strong>Company Name:</strong> {selectedUser?.companyName}</p>
-              <p><strong>Address:</strong> {selectedUser?.address}</p>
-              <p><strong>Employement Address:</strong> {selectedUser?.employementAddress}</p>
-              <p><strong>Policy Number:</strong> {selectedUser?.policyNumber}</p>
+              <p>
+                <strong>Loan Terms:</strong>
+                {selectedUser?.loanTerms}
+              </p>
+              <p>
+                <strong>Loan Amount:</strong>
+                {selectedUser?.loanAmount}
+              </p>
+              <p>
+                <strong>Reason For Loan:</strong>
+                {selectedUser?.reasonForLoan}
+              </p>
+              <p>
+                <strong>Bank Account Number:</strong>{" "}
+                {selectedUser?.accountNumber}
+              </p>
+              <p>
+                <strong>Bank Name:</strong> {selectedUser?.bankName}
+              </p>
+              <p>
+                <strong>Name:</strong> {selectedUser?.userId?.name}
+              </p>
+              <p>
+                <strong>Upload Id:</strong> {selectedUser?.uploadid}
+              </p>
+              <p>
+                <strong>Colletral:</strong> {selectedUser?.collateral}
+              </p>
+              <p>
+                <strong>Collateral Value ApprovedBy:</strong>{" "}
+                {selectedUser?.collateralValueApprovedBy}
+              </p>
+              <p>
+                <strong>Reason For Loan:</strong> {selectedUser?.reasonForLoan}
+              </p>
+              <p>
+                <strong>Tin Number:</strong> {selectedUser?.tinNumber}
+              </p>
+              <p>
+                <strong>Company Name:</strong> {selectedUser?.companyName}
+              </p>
+              <p>
+                <strong>Address:</strong> {selectedUser?.address}
+              </p>
+              <p>
+                <strong>Employement Address:</strong>{" "}
+                {selectedUser?.employementAddress}
+              </p>
+              <p>
+                <strong>Policy Number:</strong> {selectedUser?.policyNumber}
+              </p>
             </>
           )}
         </Modal.Body>

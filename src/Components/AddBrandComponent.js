@@ -13,20 +13,22 @@ const AddBrandComponent = () => {
     const [brands, setBrands] = useState([]);
     const [showModal, setShowModal] = useState(false);
     const [selectedBrand, setSelectedBrand] = useState(null);
-
+    const [currentPage, setCurrentPage] = useState(1);
+    const [hasMorePages, setHasMorePages] = useState(true);
     useEffect(() => {
         const fetchData = async () => {
           try {
             const response = await axios.get(
-              "http://13.127.84.202:3213/api/car/get-brand-name"
+              `http://13.127.84.202:3213/api/car/get-brand-name?page=${currentPage}&limit=10`
             );
             setBrands(response?.data?.data || []);
+            setHasMorePages(response?.data?.data?.length == "10");
           } catch (error) {
             console.error("Error fetching brands:", error);
           }
         };
         fetchData();
-      }, []);
+      }, [currentPage]);
 
     const handleAddBrand = () => {
         setShowModal(true);
@@ -59,7 +61,17 @@ const AddBrandComponent = () => {
           console.error("Error adding/editing brand:", error);
       }
   };
+  const nextPage = () => {
+    if (hasMorePages) {
+      setCurrentPage(currentPage + 1);
+    }
+  };
 
+  const prevPage = () => {
+    if (currentPage > 1) {
+      setCurrentPage(currentPage - 1);
+    }
+  };
     const handleEditBrand = (brand) => {
         setSelectedBrand(brand);
         setShowModal(true);
@@ -112,6 +124,18 @@ const AddBrandComponent = () => {
               ))}
               </tbody>
           </Table>
+          </div>
+          <div
+            className="pagination-controls"
+            style={{ textAlign: "right", marginRight: "20px" }}
+          >
+            <Button onClick={prevPage} disabled={currentPage === 1}>
+              Previous
+            </Button>
+            &nbsp;
+            <Button onClick={nextPage} disabled={!hasMorePages}>
+              Next
+            </Button>
           </div>
         </div>
       </div>
