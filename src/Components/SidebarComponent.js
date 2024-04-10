@@ -1,8 +1,11 @@
 import React, { useState } from "react";
 import { LOGO } from "../constants/constantMessages";
 import { Link, useLocation } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import { Button } from "react-bootstrap";
 
 const SidebarComponent = () => {
+  const navigate = useNavigate();
   const [activeMenu, setActiveMenu] = useState("");
   const location = useLocation();
 
@@ -13,7 +16,10 @@ const SidebarComponent = () => {
   const isMenuItemActive = (menuPath) => {
     return location.pathname === menuPath ? "active-menu" : "inactive-menu";
   };
-
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    navigate("/login");
+  };
   return (
     <div className="sideBarComponent">
       <img className="logoSideBarComponent" src={LOGO} alt="sidebar logo" />
@@ -88,6 +94,7 @@ const SidebarComponent = () => {
             </Link>
           </li>
         </ul>
+        <Button style={{marginLeft:"20%"}} variant="outline-light" onClick={handleLogout}>Logout</Button> 
       </div>
     </div>
   );

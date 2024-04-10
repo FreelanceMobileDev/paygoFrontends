@@ -242,6 +242,10 @@ margin-left: 20%;
   padding: 10px;
  
 }
+.content-section{
+  margin-left: 15%;
+  width: 50%;
+}
 .search-button {
   display: flex;
   align-items: center;
