@@ -48,7 +48,11 @@ const BlockUserComponent = () => {
     setShowFeedbackModal(false);
     window.location.reload();
   };
-
+  const renderImages = (imageUrls) => {
+    return imageUrls.split(",").map((url, index) => (
+      <img className="userImages" key={index} src={url.trim()} alt={`Image ${index}`} />
+    ));
+  };
   const handleUnblockUser = async () => {
     try {
       const response = await axios.put(
@@ -261,9 +265,11 @@ const BlockUserComponent = () => {
               <p>
                 <strong>Income Nature:</strong> {selectedUser?.incomeNature}
               </p>
-              <p>Facial Picture</p>
+              <p><strong>Facial Pictures:</strong></p>
+              {renderImages(selectedUser.facialPicture)}
 
-              <p>Identification Card</p>
+              <p><strong>Identification Cards:</strong></p>
+              {renderImages(selectedUser.identificationCard)}
             </div>
           )}
         </Modal.Body>

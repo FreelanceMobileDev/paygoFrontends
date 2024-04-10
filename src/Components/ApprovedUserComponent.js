@@ -54,7 +54,11 @@ const UserComponent = () => {
       setCurrentPage(currentPage - 1);
     }
   };
-
+  const renderImages = (imageUrls) => {
+    return imageUrls.split(",").map((url, index) => (
+      <img className="userImages" key={index} src={url.trim()} alt={`Image ${index}`} />
+    ));
+  };
   const handleBlockUser = async () => {
     try {
       const response = await axios.put(
@@ -196,6 +200,7 @@ const UserComponent = () => {
           <Modal.Title>User Details</Modal.Title>
         </Modal.Header>
         <Modal.Body>
+      
           {selectedUser && (
             <div>
               <img
@@ -303,6 +308,11 @@ const UserComponent = () => {
               <p>
                 <strong>Income Nature:</strong> {selectedUser?.incomeNature}
               </p>
+              <p><strong>Facial Pictures:</strong></p>
+              {renderImages(selectedUser.facialPicture)}
+
+              <p><strong>Identification Cards:</strong></p>
+              {renderImages(selectedUser.identificationCard)}
             </div>
           )}
         </Modal.Body>

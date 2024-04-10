@@ -63,6 +63,11 @@ const UserComponent = () => {
   const nextPage = () => {
     setCurrentPage(currentPage + 1);
   };
+  const renderImages = (imageUrls) => {
+    return imageUrls.split(",").map((url, index) => (
+      <img className="userImages" key={index} src={url.trim()} alt={`Image ${index}`} />
+    ));
+  };
   const prevPage = () => {
     setCurrentPage(currentPage - 1);
   };
@@ -214,7 +219,11 @@ const UserComponent = () => {
               <p><strong>Id Number:</strong> {selectedUser?.idNumber}</p>
               <p><strong>Occupational Status:</strong> {selectedUser?.occupationalStatus}</p>
               <p><strong>Income Nature:</strong> {selectedUser?.incomeNature}</p>
-              {/* Add more details as needed */}
+              <p><strong>Facial Pictures:</strong></p>
+              {renderImages(selectedUser.facialPicture)}
+
+              <p><strong>Identification Cards:</strong></p>
+              {renderImages(selectedUser.identificationCard)}
             </div>
           )}
         </Modal.Body>

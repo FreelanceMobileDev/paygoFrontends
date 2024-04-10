@@ -26,7 +26,7 @@ const LoginComponent = () => {
     }),
     onSubmit: async (values) => {
       try {
-        const response = await axios.post(`http://localhost:3213/api/admin/login?types=${values?.userType}`, { email: values?.email, password: values?.password });
+        const response = await axios.post(`http://13.127.84.202:3213/api/admin/login?types=${values?.userType}`, { email: values?.email, password: values?.password });
         // Set popup message from response data
         setPopupMessage(response.data.popupMessage);
         setShowSuccessModal(true); // Show success modal on successful login
@@ -140,7 +140,6 @@ const LoginComponent = () => {
         </Modal.Footer>
       </Modal>
 
-      {/* Fail Modal */}
       <Modal show={showFailModal} onHide={handleCloseFailModal}>
         <Modal.Header closeButton>
           <Modal.Title>Login Failed</Modal.Title>
