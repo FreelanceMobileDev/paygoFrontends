@@ -1,29 +1,83 @@
-import React from "react";
+import React, { useState } from "react";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { LOGO } from "../constants/constantMessages";
+import axios from "axios";
+import { Modal, Button } from 'react-bootstrap';
+
 const LoginComponent = () => {
+  const [popupMessage, setPopupMessage] = useState(null); // State for popup message
+  const [showSuccessModal, setShowSuccessModal] = useState(false); // State for success modal visibility
+  const [showFailModal, setShowFailModal] = useState(false); // State for fail modal visibility
+
+  const handleCloseSuccessModal = () => setShowSuccessModal(false);
+  const handleCloseFailModal = () => setShowFailModal(false);
+
   const formik = useFormik({
     initialValues: {
-      username: "",
+      email: "",
       password: "",
+      userType: ""
     },
     validationSchema: Yup.object({
-      username: Yup.string().required("Required"),
+      email: Yup.string().required("Required"),
       password: Yup.string().required("Required"),
+      userType: Yup.string().required("Required")
     }),
-    onSubmit: (values) => {
-      console.log("Form submitted with values:", values);
+    onSubmit: async (values) => {
+      try {
+        const response = await axios.post(`http://localhost:3213/api/admin/login?types=${values?.userType}`, { email: values?.email, password: values?.password });
+        // Set popup message from response data
+        setPopupMessage(response.data.popupMessage);
+        setShowSuccessModal(true); // Show success modal on successful login
+      } catch (error) {
+        // Handle login error
+        setPopupMessage(error.response.data.message);
+        setShowFailModal(true); // Show fail modal on login failure
+      }
     },
   });
 
   return (
-    <div class="landingPage">
-      <div className="col-md-3 sidebar">
+    <div className="landingPage">
+      <div className="sidebar">
         <div className="logo">
           <img src={LOGO} alt="Logo" />
         </div>
         <h3 className="login">Login</h3>
+        <h6 className="user-type-heading">Select User Type:</h6>
+        <div className="user-type-radio">
+          <label>
+            <input
+              type="radio"
+              name="userType"
+              value="horn"
+              checked={formik.values.userType === "horn"}
+              onChange={formik.handleChange}
+            />
+            Horn
+          </label>
+          <label>
+            <input
+              type="radio"
+              name="userType"
+              value="banks"
+              checked={formik.values.userType === "banks"}
+              onChange={formik.handleChange}
+            />
+            Banks
+          </label>
+          <label>
+            <input
+              type="radio"
+              name="userType"
+              value="insurance"
+              checked={formik.values.userType === "insurance"}
+              onChange={formik.handleChange}
+            />
+            Insurance
+          </label>
+        </div>
         <form onSubmit={formik.handleSubmit}>
           <div>
             <label className="inputText">Email Address</label>
@@ -36,10 +90,10 @@ const LoginComponent = () => {
               name="email"
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
-              value={formik.values.username}
+              value={formik.values.email}
             />
-            {formik.touched.username && formik.errors.username ? (
-              <div>{formik.errors.username}</div>
+            {formik.touched.email && formik.errors.email ? (
+              <div>{formik.errors.email}</div>
             ) : null}
           </div>
           <div>
@@ -67,15 +121,39 @@ const LoginComponent = () => {
           </div>
         </form>
       </div>
-      <div className="col-md-8 content-section">
-        <img
-     
-        className="img-logo"
-          alt="backgorundImage"
-          src="https://codingzone.s3.ap-south-1.amazonaws.com/Illustration.png"
-        />
-      </div>
-      <div className="col-md-1"></div>
+
+      {/* Success Modal */}
+      <Modal show={showSuccessModal} onHide={handleCloseSuccessModal}>
+        <Modal.Header closeButton>
+          <Modal.Title>Login Successful</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <p>
+            <strong>{formik.values.userType.toUpperCase()}</strong> has successfully logged in!
+          </p>
+          <p>{popupMessage}</p>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={handleCloseSuccessModal}>
+            Close
+          </Button>
+        </Modal.Footer>
+      </Modal>
+
+      {/* Fail Modal */}
+      <Modal show={showFailModal} onHide={handleCloseFailModal}>
+        <Modal.Header closeButton>
+          <Modal.Title>Login Failed</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <p>{popupMessage}</p>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={handleCloseFailModal}>
+            Close
+          </Button>
+        </Modal.Footer>
+      </Modal>
     </div>
   );
 };

@@ -30,6 +30,7 @@ const App = () => (
   <Router>
     <Routes>
       <Route path="/" element={<DashboardComponent />} />
+      <Route path="/login" element={<LoginComponent/>}/>
       <Route path="/privacy" element={<PrivacyPolicy />} />
       <Route path="/approved-user" element={<ApprovedUserComponent />} />
       <Route path="/dashboard" element={<DashboardComponent />} />
