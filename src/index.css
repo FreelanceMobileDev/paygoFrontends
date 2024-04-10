@@ -116,15 +116,15 @@ margin-left: 20%;
 .sideBarComponent{
   display: flex;
   flex-direction: column;
-  width:14%;
+  width:20%;
   height: 100%;
 }
 .dashboard-menu-container {
   max-height: calc(100vh - 40px); 
   overflow-y: auto;
 }
-.logoSideBarComponent{
-  width: 100%;
+.logoSideBarComponent {
+  width: 100%; 
   background-color: #FF914D;
 }
 .userImages{

@@ -27,7 +27,7 @@ const SidebarComponent = () => {
         <ul className="menu">
           <li className={isMenuItemActive("/")}>
             <Link to="/" onClick={() => handleMenuItemClick("/")}>
-              <span> Home</span>
+              <span style={{color:"black"}}> Home</span>
             </Link>
           </li>
           <li className={isMenuItemActive("/approved-user")}>
