@@ -93,6 +93,11 @@ const SidebarComponent = () => {
               <span>Add Models</span>
             </Link>
           </li>
+          <li className={isMenuItemActive("/messages")}>
+            <Link >
+              <span>Messages</span>
+            </Link>
+          </li>
         </ul>
         <Button style={{marginLeft:"20%"}} variant="outline-light" onClick={handleLogout}>Logout</Button> 
       </div>

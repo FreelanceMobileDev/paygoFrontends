@@ -5,7 +5,7 @@ import { userLogo } from "../constants/constantMessages";
 import { FaSearch } from "react-icons/fa";
 import { Button, Modal } from "react-bootstrap";
 import { Table } from "react-bootstrap";
-
+import { FaInfo,FaBan,FaMailBulk } from "react-icons/fa";
 const UserComponent = () => {
   const [userData, setUserData] = useState([]);
   const [selectedUser, setSelectedUser] = useState(null);
@@ -156,23 +156,26 @@ const UserComponent = () => {
                         variant="primary"
                         onClick={() => handleShowDetails(user)}
                       >
-                        View Info
+                       <FaInfo/>
                       </Button>
                     </td>
                     <td>
                       <Button
-                        variant="primary"
+                        variant="light"
                         onClick={() => handleOpenConfirmModal(user)}
                       >
-                        Block
+                        <FaBan   style={{
+      color: "#ea0628",
+    }}/>
                       </Button>
                     </td>
                     <td>
                       <Button
-                        variant="primary"
+                        variant="Light"
+                        style={{backgroundColor: "#fff"}}
                         onClick={handleOpenMessagePopup}
                       >
-                        Message
+                        <FaMailBulk style={{color:"#193152"}}/>
                       </Button>
                     </td>
                   </tr>

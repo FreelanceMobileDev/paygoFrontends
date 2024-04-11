@@ -124,7 +124,7 @@ margin-left: 20%;
   overflow-y: auto;
 }
 .logoSideBarComponent {
-  width: 100%; 
+  width: 80%; 
   background-color: #FF914D;
 }
 .userImages{
@@ -135,7 +135,9 @@ margin-left: 20%;
 }
 .main{
   background-color: #FF914D;
-  width: 100%;
+  width: 80%;
+  height: 67vh;
+  overflow: hidden;
 }
 .main ul.menu li a{
   text-decoration: none;
