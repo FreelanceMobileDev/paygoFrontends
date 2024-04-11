@@ -1,43 +1,46 @@
 import React, { useState } from "react";
 import { useFormik } from "formik";
 import * as Yup from "yup";
-import { useNavigate } from "react-router-dom"; 
+import { useNavigate } from "react-router-dom";
 import { LOGO } from "../constants/constantMessages";
 import axios from "axios";
 import { Modal, Button } from "react-bootstrap";
 
 const LoginComponent = () => {
   const [popupMessage, setPopupMessage] = useState(null);
-  const [showSuccessModal, setShowSuccessModal] = useState(false);
-  const [showFailModal, setShowFailModal] = useState(false);
-  const navigate = useNavigate(); 
+  const [showModal, setShowModal] = useState(false);
+  const [showUserModal, setShowUserModal] = useState(false);
+  const navigate = useNavigate();
 
-  const handleCloseSuccessModal = () => setShowSuccessModal(false);
-  const handleCloseFailModal = () => setShowFailModal(false);
+  const handleCloseModal = () => setShowModal(false);
+  const handleCloseUserModal = () => setShowUserModal(false);
 
   const formik = useFormik({
     initialValues: {
       email: "",
       password: "",
-      userType: "",
+
     },
     validationSchema: Yup.object({
       email: Yup.string().required("Required"),
       password: Yup.string().required("Required"),
-      userType: Yup.string().required("Required"),
     }),
     onSubmit: async (values) => {
+      if (!values.userType) {
+        setShowUserModal(true);
+        return;
+      }
       try {
         const response = await axios.post(
-          `http://13.127.84.202:3213/api/admin/login?types=${values?.userType}`,
-          { email: values?.email, password: values?.password }
+          `http://13.127.84.202:3213/api/admin/login?types=${values.userType}`,
+          { email: values.email, password: values.password }
         );
         setPopupMessage(response.data.popupMessage);
-        setShowSuccessModal(true);
+        setShowModal(true);
         navigate("/dashboard");
       } catch (error) {
         setPopupMessage(error.response.data.message);
-        setShowFailModal(true);
+        setShowModal(true);
       }
     },
   });
@@ -131,33 +134,29 @@ const LoginComponent = () => {
           src="https://paygoc.s3.ap-south-1.amazonaws.com/Illustration.png"
         />
       </div>
-      <Modal show={showSuccessModal} onHide={handleCloseSuccessModal}>
+
+      <Modal show={showModal} onHide={handleCloseModal}>
         <Modal.Header closeButton>
-          <Modal.Title>Login Successful</Modal.Title>
+          <Modal.Title>Error</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <p>
-            <strong>{formik.values.userType.toUpperCase()}</strong> has
-            successfully logged in!
-          </p>
           <p>{popupMessage}</p>
         </Modal.Body>
         <Modal.Footer>
-          <Button variant="secondary" onClick={handleCloseSuccessModal}>
+          <Button variant="secondary" onClick={handleCloseModal}>
             Close
           </Button>
         </Modal.Footer>
       </Modal>
-
-      <Modal show={showFailModal} onHide={handleCloseFailModal}>
+      <Modal show={showUserModal} onHide={handleCloseUserModal}>
         <Modal.Header closeButton>
-          <Modal.Title>Login Failed</Modal.Title>
+          <Modal.Title>Select User Type</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <p>{popupMessage}</p>
+          <p>Please Select User Type</p>
         </Modal.Body>
         <Modal.Footer>
-          <Button variant="secondary" onClick={handleCloseFailModal}>
+          <Button variant="secondary" onClick={handleCloseUserModal}>
             Close
           </Button>
         </Modal.Footer>
