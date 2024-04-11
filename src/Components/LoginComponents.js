@@ -46,11 +46,14 @@ const LoginComponent = () => {
     <div className="landingPage">
       <div className="sidebar">
         <div className="logo">
-          <img src={LOGO} alt="Logo" />
+        
+          <img  src={LOGO} alt="Logo" />
+         
         </div>
-        <h3 className="login">Login</h3>
-        <h6 className="user-type-heading">Select User Type:</h6>
+        <h3 className="login">Log in</h3>
+        <h6 className="user-type-heading">Select User Type</h6>
         <div className="user-type-radio">
+         <div style={{display:'flex',justifyContent:"space-between",paddingInlineEnd:50,marginTop:60,paddingInlineStart:3}}>
           <label>
             <input
               type="radio"
@@ -71,6 +74,8 @@ const LoginComponent = () => {
             />
             Banks
           </label>
+          </div>
+         <div style={{display:'flex',justifyContent:"space-between",paddingInlineEnd:2,paddingInlineStart:3}}>
           <label>
             <input
               type="radio"
@@ -81,12 +86,23 @@ const LoginComponent = () => {
             />
             Insurance
           </label>
-        </div>
-        <form onSubmit={formik.handleSubmit}>
-          <div>
-            <label className="inputText">Email Address</label>
+          <label>
+            <input
+              type="radio"
+              name="userType"
+              value="insurance"
+              checked={formik.values.userType === "insurance"}
+              onChange={formik.handleChange}
+            />
+            Super Admin
+          </label>
           </div>
-          <div>
+        </div>
+        <form style={{display:'flex',flexDirection:'column',justifyContent:'space-between',height:'40%',paddingTop:30}} onSubmit={formik.handleSubmit}>
+        <div>
+            <label className="inputText" htmlFor="email">Email Address</label>
+          
+        
             <input
               className="inputTextField"
               type="text"
@@ -101,15 +117,16 @@ const LoginComponent = () => {
             ) : null}
           </div>
           <div>
+          
             <label className="inputText" htmlFor="password">
-              Password:
+              Password
             </label>
             <input
               className="inputTextField"
               type="password"
               id="password"
               name="password"
-              placeholder="**********"
+              placeholder=""
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
               value={formik.values.password}
@@ -120,7 +137,7 @@ const LoginComponent = () => {
           </div>
           <div className="submitButton">
             <button className="loginButton" type="submit">
-              Login
+              Log in
             </button>
           </div>
         </form>

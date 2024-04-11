@@ -22,12 +22,14 @@ const SidebarComponent = () => {
   };
   return (
     <div className="sideBarComponent">
-      <img className="logoSideBarComponent" src={LOGO} alt="sidebar logo" />
+      <div className="logoSide" >
+        <img src={LOGO} alt="LogoSide" />
+      </div>
       <div className="main">
         <ul className="menu">
           <li className={isMenuItemActive("/")}>
             <Link to="/" onClick={() => handleMenuItemClick("/")}>
-              <span style={{color:"black"}}> Home</span>
+              <span style={{ color: "black" }}> Home</span>
             </Link>
           </li>
           <li className={isMenuItemActive("/approved-user")}>
@@ -99,7 +101,7 @@ const SidebarComponent = () => {
             </Link>
           </li>
         </ul>
-        <Button style={{marginLeft:"20%"}} variant="outline-light" onClick={handleLogout}>Logout</Button> 
+        <Button className="logoutButton" variant="outline-light" onClick={handleLogout}>Logout</Button>
       </div>
     </div>
   );

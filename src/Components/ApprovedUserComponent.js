@@ -5,7 +5,7 @@ import { userLogo } from "../constants/constantMessages";
 import { FaSearch } from "react-icons/fa";
 import { Button, Modal } from "react-bootstrap";
 import { Table } from "react-bootstrap";
-import { FaInfo,FaBan,FaMailBulk } from "react-icons/fa";
+import { FaInfo, FaBan, FaMailBulk } from "react-icons/fa";
 const UserComponent = () => {
   const [userData, setUserData] = useState([]);
   const [selectedUser, setSelectedUser] = useState(null);
@@ -16,7 +16,7 @@ const UserComponent = () => {
   const [blockSuccess, setBlockSuccess] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
   const [hasMorePages, setHasMorePages] = useState(true);
-  
+
   const fetchData = async () => {
     try {
       const response = await axios.get(
@@ -99,17 +99,23 @@ const UserComponent = () => {
         <div className="user-container">
           <div className="search-container">
             <h1> User</h1>
+            
             <div className="user-search-container">
+            <Button variant="primary" style={{ backgroundColor: '#FF914D', borderWidth: 0,width:200}}>
+                Add Member
+              </Button>
               <input
+                style={{ borderColor: '#FF914D', borderWidth: 1 }}
                 type="text"
                 className="inputTextUserSearchField"
                 placeholder="Search User"
                 name="search"
               />
-              <Button variant="primary">
+              <Button variant="primary" style={{ backgroundColor: '#FF914D', borderWidth: 0 }}>
                 <FaSearch />
               </Button>
             </div>
+
           </div>
           <div className="user-table-data">
             <Table
@@ -138,7 +144,7 @@ const UserComponent = () => {
                     <td>{user?.name}</td>
                     <td>{user?.phoneNumber}</td>
                     <td>{user?.email}</td>
-                    <td>
+                    <td align='center'>
                       {user?.gender && (
                         <Button
                           variant={
@@ -151,31 +157,35 @@ const UserComponent = () => {
                         </Button>
                       )}
                     </td>
-                    <td>
+                    <td align='center' >
                       <Button
+
+
+                        style={{ backgroundColor: "#FF914D", borderWidth: 0 }}
                         variant="primary"
                         onClick={() => handleShowDetails(user)}
                       >
-                       <FaInfo/>
+                        <FaInfo />
                       </Button>
                     </td>
-                    <td>
+                    <td align='center'>
                       <Button
-                        variant="light"
+                       style={{ backgroundColor: "#FF914D", borderWidth: 0 }}
+                        variant= "#FF914D"
                         onClick={() => handleOpenConfirmModal(user)}
                       >
-                        <FaBan   style={{
-      color: "#ea0628",
-    }}/>
+                        <FaBan style={{
+                          color: "white",
+                        }} />
                       </Button>
                     </td>
-                    <td>
+                    <td align='center'>
                       <Button
                         variant="Light"
-                        style={{backgroundColor: "#fff"}}
+                        style={{ backgroundColor: "#FF914D", borderWidth: 0 }}
                         onClick={handleOpenMessagePopup}
                       >
-                        <FaMailBulk style={{color:"#193152"}}/>
+                        <FaMailBulk style={{   color: "white",}}  />
                       </Button>
                     </td>
                   </tr>
@@ -203,7 +213,7 @@ const UserComponent = () => {
           <Modal.Title>User Details</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-      
+
           {selectedUser && (
             <div>
               <img

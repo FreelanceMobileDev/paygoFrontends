@@ -3,13 +3,13 @@ import SidebarComponent from "./SidebarComponent";
 import axios from "axios";
 import { userLogo } from "../constants/constantMessages";
 import { FaSearch } from "react-icons/fa";
-import { Button,Modal } from "react-bootstrap";
+import { Button, Modal } from "react-bootstrap";
 import { Table } from "react-bootstrap";
 
 const UserComponent = () => {
   const [userData, setUserData] = useState([]);
   const [userRequest, setUserRequest] = useState([]);
-  const [selectedUser, setSelectedUser] = useState(null); 
+  const [selectedUser, setSelectedUser] = useState(null);
   const [showDetailsModal, setShowDetailsModal] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
   const [hasMorePages, setHasMorePages] = useState(true);
@@ -72,9 +72,11 @@ const UserComponent = () => {
     setCurrentPage(currentPage - 1);
   };
   return (
-    <div>
-     <div className="header-container">
+    <>
+      <div className="header-container" >
+        <div>
         <SidebarComponent />
+        </div>
         <div className="user-container">
           <div className="search-container">
             <h1> User</h1>
@@ -156,7 +158,7 @@ const UserComponent = () => {
                     <td>
                       <Button
                         variant="primary"
-                        onClick={() => handleShowDetails(user)} 
+                        onClick={() => handleShowDetails(user)}
                       >
                         View Info
                       </Button>
@@ -179,16 +181,15 @@ const UserComponent = () => {
             </Button>
           </div>
         </div>
-      </div>
-      
-      <Modal show={showDetailsModal} onHide={() => setShowDetailsModal(false)}>
+     
+        <Modal show={showDetailsModal} onHide={() => setShowDetailsModal(false)}>
         <Modal.Header closeButton>
           <Modal.Title>User Details</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           {selectedUser && (
             <div>
-              <img className="userImages" src={selectedUser?.image ||"https://w7.pngwing.com/pngs/178/595/png-transparent-user-profile-computer-icons-login-user-avatars-thumbnail.png"}/>
+              <img className="userImages" src={selectedUser?.image || "https://w7.pngwing.com/pngs/178/595/png-transparent-user-profile-computer-icons-login-user-avatars-thumbnail.png"} />
               <p><strong>Name:</strong> {selectedUser?.name}</p>
               <p><strong>Email:</strong> {selectedUser?.email}</p>
               <p><strong>Is Verified:</strong> {selectedUser?.isVerified}</p>
@@ -233,7 +234,10 @@ const UserComponent = () => {
           </Button>
         </Modal.Footer>
       </Modal>
-    </div>
+      </div>
+
+      
+    </>
   );
 };
 

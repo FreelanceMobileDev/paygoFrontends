@@ -50,7 +50,9 @@ const DashboardComponent = () => {
   return (
     <>
       <div className="header-container">
-        <SidebarComponent />
+       <div>
+       <SidebarComponent />
+       </div>
         <div className="dashboard">
           <h1>Dashboard</h1>
           <div class="dashboard-menu-container">
