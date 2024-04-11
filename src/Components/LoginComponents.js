@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useFormik } from "formik";
 import * as Yup from "yup";
-import { useNavigate } from "react-router-dom"; // Import useHistory hook
+import { useNavigate } from "react-router-dom"; 
 import { LOGO } from "../constants/constantMessages";
 import axios from "axios";
 import { Modal, Button } from "react-bootstrap";
@@ -10,7 +10,7 @@ const LoginComponent = () => {
   const [popupMessage, setPopupMessage] = useState(null);
   const [showSuccessModal, setShowSuccessModal] = useState(false);
   const [showFailModal, setShowFailModal] = useState(false);
-  const navigate = useNavigate(); // Initialize usenavigate hook
+  const navigate = useNavigate(); 
 
   const handleCloseSuccessModal = () => setShowSuccessModal(false);
   const handleCloseFailModal = () => setShowFailModal(false);
