@@ -6,6 +6,9 @@ import { FaSearch } from "react-icons/fa";
 import { Button, Modal } from "react-bootstrap";
 import { Table } from "react-bootstrap";
 import { FaInfo, FaBan, FaMailBulk } from "react-icons/fa";
+import AddMember from "./AddMember";
+import HandleModal from "../constants/helper";
+import Tabs from "../Modals/Tabs";
 const UserComponent = () => {
   const [userData, setUserData] = useState([]);
   const [selectedUser, setSelectedUser] = useState(null);
@@ -16,6 +19,7 @@ const UserComponent = () => {
   const [blockSuccess, setBlockSuccess] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
   const [hasMorePages, setHasMorePages] = useState(true);
+  const { open, setValues, activeTab, handleTabClick, tabData } = HandleModal()
 
   const fetchData = async () => {
     try {
@@ -29,9 +33,16 @@ const UserComponent = () => {
     }
   };
 
+
+
+
   useEffect(() => {
-    fetchData();
-  }, [currentPage]); // Fetch data whenever currentPage changes
+    if (activeTab === 0) {
+      fetchData();
+    } else {
+      setUserData(tabData)
+    }
+  }, [currentPage, activeTab, handleTabClick]); // Fetch data whenever currentPage changes
 
   const handleShowDetails = (user) => {
     setSelectedUser(user);
@@ -92,16 +103,25 @@ const UserComponent = () => {
     setShowMessagePopup(false);
   };
 
+ 
+
+
+
+
   return (
     <div>
+      {open &&
+        <AddMember close={() => { setValues() }} />}
       <div className="header-container">
         <SidebarComponent />
         <div className="user-container">
           <div className="search-container">
-            <h1> User</h1>
-            
+
+            <Tabs  handleTabClick={(index) => { handleTabClick(index) }} activeTab={activeTab} />
+
             <div className="user-search-container">
-            <Button variant="primary" style={{ backgroundColor: '#FF914D', borderWidth: 0,width:200}}>
+              <Button variant="primary" onClick={() => { setValues() }}
+                style={{ backgroundColor: '#FF914D', borderWidth: 0, width: 200 }}>
                 Add Member
               </Button>
               <input
@@ -118,23 +138,29 @@ const UserComponent = () => {
 
           </div>
           <div className="user-table-data">
+
+
             <Table
               striped
               bordered
               hover
               size="sm"
-              style={{ borderRadius: "5px" }}
-            >
+              style={{ borderRadius: "5px" }}>
               <thead>
                 <tr>
                   <th>S.NO.</th>
                   <th>Name</th>
                   <th>Mobile Number</th>
                   <th>Email</th>
-                  <th>Gender</th>
-                  <th>Action</th>
-                  <th>Block User</th>
-                  <th>Message</th>
+                  {activeTab === 0&&<>
+                    <th>Gender</th>
+                    <th>Action</th>
+                    <th>Block User</th>
+                    <th>Message</th>
+                  </>
+                  }
+
+
                 </tr>
               </thead>
               <tbody>
@@ -142,8 +168,9 @@ const UserComponent = () => {
                   <tr key={index}>
                     <td>{index + 1}</td>
                     <td>{user?.name}</td>
-                    <td>{user?.phoneNumber}</td>
+                    <td>{user?.phoneNumber ? user?.phoneNumber : user?.mobileNumber}</td>
                     <td>{user?.email}</td>
+                    {activeTab === 0&&<>
                     <td align='center'>
                       {user?.gender && (
                         <Button
@@ -157,6 +184,7 @@ const UserComponent = () => {
                         </Button>
                       )}
                     </td>
+                   
                     <td align='center' >
                       <Button
 
@@ -170,8 +198,8 @@ const UserComponent = () => {
                     </td>
                     <td align='center'>
                       <Button
-                       style={{ backgroundColor: "#FF914D", borderWidth: 0 }}
-                        variant= "#FF914D"
+                        style={{ backgroundColor: "#FF914D", borderWidth: 0 }}
+                        variant="#FF914D"
                         onClick={() => handleOpenConfirmModal(user)}
                       >
                         <FaBan style={{
@@ -185,13 +213,18 @@ const UserComponent = () => {
                         style={{ backgroundColor: "#FF914D", borderWidth: 0 }}
                         onClick={handleOpenMessagePopup}
                       >
-                        <FaMailBulk style={{   color: "white",}}  />
+                        <FaMailBulk style={{ color: "white", }} />
                       </Button>
                     </td>
+
+                   </> }
+
                   </tr>
                 ))}
               </tbody>
             </Table>
+
+
           </div>
           <div
             className="pagination-controls"
