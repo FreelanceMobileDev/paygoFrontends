@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { Button, Modal } from "react-bootstrap";
+import React from 'react';
+import { Button } from "react-bootstrap";
 const Tabs = ({ handleTabClick,activeTab}) => {
     const tabs = [
         {
