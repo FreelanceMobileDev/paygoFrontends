@@ -154,7 +154,7 @@ const UserComponent = () => {
                   <th>Email</th>
                   {activeTab === 0&&<>
                     <th>Gender</th>
-                    <th>Action</th>
+                    <th>Info</th>
                     <th>Block User</th>
                     <th>Message</th>
                   </>
